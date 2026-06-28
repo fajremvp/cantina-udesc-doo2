@@ -4,6 +4,13 @@
  */
 package br.udesc.doo2.cantina.view.administrador;
 
+import br.udesc.doo2.cantina.controller.OpcaoCarneController;
+import br.udesc.doo2.cantina.controller.RefeicaoController;
+import br.udesc.doo2.cantina.dao.OpcaoCarneDAO;
+import br.udesc.doo2.cantina.dao.RefeicaoDAO;
+import br.udesc.doo2.cantina.repository.OpcaoCarneRepository;
+import br.udesc.doo2.cantina.repository.RefeicaoRepository;
+
 /**
  *
  * @author fajre
@@ -17,8 +24,45 @@ public class HomeAdministradorView extends javax.swing.JFrame {
      */
     public HomeAdministradorView() {
         initComponents();
+        
+        btnCadastrarRefeicao.addActionListener(e-> acaoCadastrarRefeicao());
+        btnCadastrarCarnes.addActionListener(e->acaoCadastrarCarnes());
+        btnConsultarPedidos.addActionListener(e->acaoConsultarPedidos());
+        btnGerarRelatórios.addActionListener(e->acaoGerarRelatórios());
+        btnComentarios.addActionListener(e->acaoComentarios());
+        btnAlterarCadastro.addActionListener(e->acaoAlterarCadastro());
+        setVisible(true);
     }
 
+    public void acaoCadastrarRefeicao() {
+        CadastrarRefeicaoView view = new CadastrarRefeicaoView();
+        RefeicaoRepository repositoryRefeicao = new RefeicaoDAO();
+        OpcaoCarneRepository repositoryCarne = new OpcaoCarneDAO();
+        RefeicaoController controller = new RefeicaoController(view, repositoryRefeicao, repositoryCarne);
+    }
+    
+    public void acaoCadastrarCarnes() {
+        CadastrarCarnesView view = new CadastrarCarnesView();
+        OpcaoCarneRepository repositoryCarne = new OpcaoCarneDAO();
+        OpcaoCarneController controller = new OpcaoCarneController(view, repositoryCarne);
+    }
+    
+    public void acaoConsultarPedidos() {
+        
+    }
+    
+    public void acaoGerarRelatórios() {
+        
+    }
+    
+    public void acaoComentarios() {
+        
+    }
+    
+    public void acaoAlterarCadastro() {
+        
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,56 +72,58 @@ public class HomeAdministradorView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnAlterarCadastro = new javax.swing.JButton();
+        btnConsultarPedidos = new javax.swing.JButton();
+        btnCadastrarRefeicao = new javax.swing.JButton();
+        btnGerarRelatórios = new javax.swing.JButton();
+        btnComentarios = new javax.swing.JButton();
+        btnCadastrarCarnes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Alterar cadastro");
+        btnAlterarCadastro.setText("Alterar cadastro");
 
-        jButton2.setText("Consultar Pedidos");
+        btnConsultarPedidos.setText("Consultar Pedidos");
 
-        jButton3.setText("Cadastrar Refeicao");
+        btnCadastrarRefeicao.setText("Cadastrar Refeicao");
 
-        jButton4.setText("Gerar relatorios");
+        btnGerarRelatórios.setText("Gerar relatorios");
 
-        jButton5.setText("Comentarios");
+        btnComentarios.setText("Comentarios");
+
+        btnCadastrarCarnes.setText("Cadastrar Carnes");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(127, 127, 127)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton5)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton4)
-                            .addComponent(jButton2)
-                            .addComponent(jButton1)
-                            .addComponent(jButton3))
-                        .addGap(49, 146, Short.MAX_VALUE))))
+                .addGap(185, 185, 185)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnComentarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCadastrarRefeicao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnConsultarPedidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnGerarRelatórios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAlterarCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCadastrarCarnes, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(187, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(55, Short.MAX_VALUE)
-                .addComponent(jButton3)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(85, 85, 85)
+                .addComponent(btnCadastrarRefeicao)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(btnCadastrarCarnes)
                 .addGap(18, 18, 18)
-                .addComponent(jButton4)
-                .addGap(25, 25, 25)
-                .addComponent(jButton5)
+                .addComponent(btnConsultarPedidos)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addGap(51, 51, 51))
+                .addComponent(btnGerarRelatórios)
+                .addGap(18, 18, 18)
+                .addComponent(btnComentarios)
+                .addGap(18, 18, 18)
+                .addComponent(btnAlterarCadastro)
+                .addContainerGap(87, Short.MAX_VALUE))
         );
 
         pack();
@@ -109,10 +155,11 @@ public class HomeAdministradorView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton btnAlterarCadastro;
+    private javax.swing.JButton btnCadastrarCarnes;
+    private javax.swing.JButton btnCadastrarRefeicao;
+    private javax.swing.JButton btnComentarios;
+    private javax.swing.JButton btnConsultarPedidos;
+    private javax.swing.JButton btnGerarRelatórios;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,9 +4,11 @@ public class OpcaoCarne {
     private int id;
     private String nome;
     private int quantidadeDisponivel;
+    
+    private static int geradorId=0;
 
-    public OpcaoCarne(int id, String nome, int quantidadeDisponivel) {
-        this.id = id;
+    public OpcaoCarne(String nome, int quantidadeDisponivel) {
+        this.id = ++geradorId;
         this.nome = nome;
         this.quantidadeDisponivel = quantidadeDisponivel;
     }

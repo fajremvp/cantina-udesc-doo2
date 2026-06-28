@@ -1,6 +1,7 @@
 package br.udesc.doo2.cantina.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Refeicao {
@@ -10,14 +11,16 @@ public class Refeicao {
     private float preco;
     private int capacidadeMaxima;
     private List<OpcaoCarne> carnes;
+    
+    private static int geradorId=0;
 
-    public Refeicao(int id, LocalDate data, String descricao, float preco, int capacidadeMaxima, List<OpcaoCarne> carnes) {
-        this.id = id;
+    public Refeicao(LocalDate data, String descricao, float preco, int capacidadeMaxima) {
+        this.id = ++geradorId;
         this.data = data;
         this.descricao = descricao;
         this.preco = preco;
         this.capacidadeMaxima = capacidadeMaxima;
-        this.carnes = carnes;
+        this.carnes = new ArrayList<>();
     }
 
     public int getId() { return id; }
@@ -31,5 +34,5 @@ public class Refeicao {
     public int getCapacidadeMaxima() { return capacidadeMaxima; }
     public void setCapacidadeMaxima(int capacidadeMaxima) { this.capacidadeMaxima = capacidadeMaxima; }
     public List<OpcaoCarne> getCarnes() { return carnes; }
-    public void setCarnes(List<OpcaoCarne> carnes) { this.carnes = carnes; }
+    public void salvarCarne(OpcaoCarne carne) { carnes.add(carne); }
 }

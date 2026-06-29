@@ -1,22 +1,20 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package br.udesc.doo2.cantina.view.administrador;
 
-/**
- *
- * @author fajre
- */
+import br.udesc.doo2.cantina.model.Administrador;
+
 public class HomeAdministradorView extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(HomeAdministradorView.class.getName());
 
-    /**
-     * Creates new form HomeAdministradorView
-     */
-    public HomeAdministradorView() {
+    private final Administrador administradorLogado;
+
+    public HomeAdministradorView(Administrador administradorLogado) {
+        this.administradorLogado = administradorLogado;
         initComponents();
+    }
+
+    public Administrador getAdministradorLogado() {
+        return administradorLogado;
     }
 
     /**
@@ -28,56 +26,17 @@ public class HomeAdministradorView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jButton1.setText("Alterar cadastro");
-
-        jButton2.setText("Consultar Pedidos");
-
-        jButton3.setText("Cadastrar Refeicao");
-
-        jButton4.setText("Gerar relatorios");
-
-        jButton5.setText("Comentarios");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(127, 127, 127)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton5)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton4)
-                            .addComponent(jButton2)
-                            .addComponent(jButton1)
-                            .addComponent(jButton3))
-                        .addGap(49, 146, Short.MAX_VALUE))))
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(55, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2)
-                .addGap(18, 18, 18)
-                .addComponent(jButton4)
-                .addGap(25, 25, 25)
-                .addComponent(jButton5)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addGap(51, 51, 51))
+            .addGap(0, 300, Short.MAX_VALUE)
         );
 
         pack();
@@ -104,15 +63,12 @@ public class HomeAdministradorView extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new HomeAdministradorView().setVisible(true));
+        // O main() de preview isolado não tem um Admin ainda pré-cadastrado.
+        // Botei null só para visualização da tela no NetBeans.
+        // Depois a tela é sempre aberta pelo LoginController com o Administrador autenticado.
+        java.awt.EventQueue.invokeLater(() -> new HomeAdministradorView(null).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     // End of variables declaration//GEN-END:variables
 }

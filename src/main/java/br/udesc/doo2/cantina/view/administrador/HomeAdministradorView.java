@@ -1,68 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package br.udesc.doo2.cantina.view.administrador;
 
-import br.udesc.doo2.cantina.controller.OpcaoCarneController;
-import br.udesc.doo2.cantina.controller.RefeicaoController;
-import br.udesc.doo2.cantina.dao.OpcaoCarneDAO;
-import br.udesc.doo2.cantina.dao.RefeicaoDAO;
-import br.udesc.doo2.cantina.repository.OpcaoCarneRepository;
-import br.udesc.doo2.cantina.repository.RefeicaoRepository;
+import br.udesc.doo2.cantina.model.Administrador;
 
-/**
- *
- * @author fajre
- */
 public class HomeAdministradorView extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(HomeAdministradorView.class.getName());
 
-    /**
-     * Creates new form HomeAdministradorView
-     */
-    public HomeAdministradorView() {
+    private final Administrador administradorLogado;
+
+    public HomeAdministradorView(Administrador administradorLogado) {
+        this.administradorLogado = administradorLogado;
         initComponents();
-        
-        btnCadastrarRefeicao.addActionListener(e-> acaoCadastrarRefeicao());
-        btnCadastrarCarnes.addActionListener(e->acaoCadastrarCarnes());
-        btnConsultarPedidos.addActionListener(e->acaoConsultarPedidos());
-        btnGerarRelatórios.addActionListener(e->acaoGerarRelatórios());
-        btnComentarios.addActionListener(e->acaoComentarios());
-        btnAlterarCadastro.addActionListener(e->acaoAlterarCadastro());
-        setVisible(true);
     }
 
-    public void acaoCadastrarRefeicao() {
-        CadastrarRefeicaoView view = new CadastrarRefeicaoView();
-        RefeicaoRepository repositoryRefeicao = new RefeicaoDAO();
-        OpcaoCarneRepository repositoryCarne = new OpcaoCarneDAO();
-        RefeicaoController controller = new RefeicaoController(view, repositoryRefeicao, repositoryCarne);
+    public Administrador getAdministradorLogado() {
+        return administradorLogado;
     }
-    
-    public void acaoCadastrarCarnes() {
-        CadastrarCarnesView view = new CadastrarCarnesView();
-        OpcaoCarneRepository repositoryCarne = new OpcaoCarneDAO();
-        OpcaoCarneController controller = new OpcaoCarneController(view, repositoryCarne);
-    }
-    
-    public void acaoConsultarPedidos() {
-        
-    }
-    
-    public void acaoGerarRelatórios() {
-        
-    }
-    
-    public void acaoComentarios() {
-        
-    }
-    
-    public void acaoAlterarCadastro() {
-        
-    }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -72,58 +26,17 @@ public class HomeAdministradorView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnAlterarCadastro = new javax.swing.JButton();
-        btnConsultarPedidos = new javax.swing.JButton();
-        btnCadastrarRefeicao = new javax.swing.JButton();
-        btnGerarRelatórios = new javax.swing.JButton();
-        btnComentarios = new javax.swing.JButton();
-        btnCadastrarCarnes = new javax.swing.JButton();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        btnAlterarCadastro.setText("Alterar cadastro");
-
-        btnConsultarPedidos.setText("Consultar Pedidos");
-
-        btnCadastrarRefeicao.setText("Cadastrar Refeicao");
-
-        btnGerarRelatórios.setText("Gerar relatorios");
-
-        btnComentarios.setText("Comentarios");
-
-        btnCadastrarCarnes.setText("Cadastrar Carnes");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(185, 185, 185)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnComentarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCadastrarRefeicao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnConsultarPedidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnGerarRelatórios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAlterarCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCadastrarCarnes, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(187, Short.MAX_VALUE))
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(85, 85, 85)
-                .addComponent(btnCadastrarRefeicao)
-                .addGap(18, 18, 18)
-                .addComponent(btnCadastrarCarnes)
-                .addGap(18, 18, 18)
-                .addComponent(btnConsultarPedidos)
-                .addGap(18, 18, 18)
-                .addComponent(btnGerarRelatórios)
-                .addGap(18, 18, 18)
-                .addComponent(btnComentarios)
-                .addGap(18, 18, 18)
-                .addComponent(btnAlterarCadastro)
-                .addContainerGap(87, Short.MAX_VALUE))
+            .addGap(0, 300, Short.MAX_VALUE)
         );
 
         pack();
@@ -150,16 +63,12 @@ public class HomeAdministradorView extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new HomeAdministradorView().setVisible(true));
+        // O main() de preview isolado não tem um Admin ainda pré-cadastrado.
+        // Botei null só para visualização da tela no NetBeans.
+        // Depois a tela é sempre aberta pelo LoginController com o Administrador autenticado.
+        java.awt.EventQueue.invokeLater(() -> new HomeAdministradorView(null).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAlterarCadastro;
-    private javax.swing.JButton btnCadastrarCarnes;
-    private javax.swing.JButton btnCadastrarRefeicao;
-    private javax.swing.JButton btnComentarios;
-    private javax.swing.JButton btnConsultarPedidos;
-    private javax.swing.JButton btnGerarRelatórios;
     // End of variables declaration//GEN-END:variables
 }

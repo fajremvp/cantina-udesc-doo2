@@ -1,22 +1,25 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package br.udesc.doo2.cantina.view.cliente;
 
-/**
- *
- * @author fajre
- */
+import br.udesc.doo2.cantina.model.Cliente;
+
 public class HomeClienteView extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(HomeClienteView.class.getName());
 
-    /**
-     * Creates new form HomeClienteView
-     */
-    public HomeClienteView() {
+    // Cliente autenticado que abriu esta tela - usado pelas próximas
+    // funcionalidades (Pedido, Comentário, Alterar Cadastro) para saber
+    // "quem" está operando, sem precisar logar de novo.
+    private final Cliente clienteLogado;
+
+    public HomeClienteView(Cliente clienteLogado) {
+        this.clienteLogado = clienteLogado;
         initComponents();
+        // TODO: usar clienteLogado.getNome() para exibir boas-vindas na tela,
+        // se/quando um JLabel for adicionado para isso no Form Editor.
+    }
+    
+    public Cliente getClienteLogado() {
+        return clienteLogado;
     }
 
     /**
@@ -28,46 +31,17 @@ public class HomeClienteView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jButton1.setText("Pedido");
-
-        jButton2.setText("Comentar / Avaliar / Sugerir");
-
-        jButton3.setText("Alterar cadastro");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 102, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(91, 91, 91))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(163, 163, 163)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(132, 132, 132)
-                        .addComponent(jButton3)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(67, 67, 67)
-                .addComponent(jButton1)
-                .addGap(46, 46, 46)
-                .addComponent(jButton2)
-                .addGap(34, 34, 34)
-                .addComponent(jButton3)
-                .addContainerGap(84, Short.MAX_VALUE))
+            .addGap(0, 300, Short.MAX_VALUE)
         );
 
         pack();
@@ -94,13 +68,12 @@ public class HomeClienteView extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new HomeClienteView().setVisible(true));
+        // O main() de preview isolado não tem um Cliente real disponível.
+        // Botei null só para visualização da tela no NetBeans.
+        // Depois a tela é sempre aberta pelo LoginController com o Cliente autenticado.
+        java.awt.EventQueue.invokeLater(() -> new HomeClienteView(null).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     // End of variables declaration//GEN-END:variables
 }

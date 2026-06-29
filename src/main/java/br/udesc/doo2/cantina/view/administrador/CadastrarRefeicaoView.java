@@ -245,6 +245,7 @@ public class CadastrarRefeicaoView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrarRefeicao;
     private javax.swing.JComboBox<String> cbCarne1;

@@ -28,17 +28,84 @@ public class PedidoView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btngroupOpcaoCarne = new javax.swing.ButtonGroup();
+        btngroupOpcaoConsumo = new javax.swing.ButtonGroup();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        rbtnCarne1Pedido = new javax.swing.JRadioButton();
+        rbtnCarne2Pedido = new javax.swing.JRadioButton();
+        rbtnOpcaoConsumoLevar = new javax.swing.JRadioButton();
+        rbtnOpcaoConsumoLocal = new javax.swing.JRadioButton();
+        jButton1 = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setText("Pedido");
+
+        jLabel2.setText("Opção de Carne:");
+
+        jLabel3.setText("Opção de Consumo:");
+
+        btngroupOpcaoCarne.add(rbtnCarne1Pedido);
+        rbtnCarne1Pedido.setText("Carne 1");
+
+        btngroupOpcaoCarne.add(rbtnCarne2Pedido);
+        rbtnCarne2Pedido.setText("Carne 2");
+
+        btngroupOpcaoConsumo.add(rbtnOpcaoConsumoLevar);
+        rbtnOpcaoConsumoLevar.setText("Levar");
+
+        btngroupOpcaoConsumo.add(rbtnOpcaoConsumoLocal);
+        rbtnOpcaoConsumoLocal.setText("Local");
+
+        jButton1.setText("Salvar Pedido");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rbtnOpcaoConsumoLevar)
+                            .addComponent(jLabel2)
+                            .addComponent(rbtnCarne1Pedido)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rbtnCarne2Pedido)
+                            .addComponent(rbtnOpcaoConsumoLocal))))
+                .addGap(103, 103, 103))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel1)
+                .addGap(33, 33, 33)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbtnCarne1Pedido)
+                    .addComponent(rbtnCarne2Pedido))
+                .addGap(33, 33, 33)
+                .addComponent(jLabel3)
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbtnOpcaoConsumoLevar)
+                    .addComponent(rbtnOpcaoConsumoLocal))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18))
         );
 
         pack();
@@ -70,5 +137,15 @@ public class PedidoView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup btngroupOpcaoCarne;
+    private javax.swing.ButtonGroup btngroupOpcaoConsumo;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JRadioButton rbtnCarne1Pedido;
+    private javax.swing.JRadioButton rbtnCarne2Pedido;
+    private javax.swing.JRadioButton rbtnOpcaoConsumoLevar;
+    private javax.swing.JRadioButton rbtnOpcaoConsumoLocal;
     // End of variables declaration//GEN-END:variables
 }

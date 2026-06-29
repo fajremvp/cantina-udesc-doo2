@@ -51,14 +51,14 @@ public class CadastrarRefeicaoView extends javax.swing.JFrame {
     }
     
     public String getCarne1Selecionada() throws RefeicaoException {
-        if (cbCarne1.getSelectedItem() == cbCarne2.getSelectedItem()) {
+        if (cbCarne1.getSelectedItem().equals(cbCarne2.getSelectedItem())) {
             throw new RefeicaoException("As opções de carne não podem ser iguais");
         }
         return (String) cbCarne1.getSelectedItem();
     }
     
     public String getCarne2Selecionada() throws RefeicaoException {
-        if (cbCarne1.getSelectedItem() == cbCarne2.getSelectedItem()) {
+        if (cbCarne1.getSelectedItem().equals(cbCarne2.getSelectedItem())) {
             throw new RefeicaoException("As opções de carne não podem ser iguais");
         }
         return (String) cbCarne2.getSelectedItem();

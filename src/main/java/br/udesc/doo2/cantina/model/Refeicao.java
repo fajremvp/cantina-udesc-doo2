@@ -1,24 +1,44 @@
 package br.udesc.doo2.cantina.model;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "refeicao")
 public class Refeicao {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    
     private LocalDate data;
     private String descricao;
     private float preco;
     private int capacidadeMaxima;
-    private List<OpcaoCarne> carnes;
+    
+    @ManyToMany
+    @JoinTable(
+        name = "refeicao_carne",
+        joinColumns = @JoinColumn(name = "refeicao_id"),
+        inverseJoinColumns = @JoinColumn(name = "carne_id")
+    )
+    private Set<OpcaoCarne> carnes = new HashSet<>();
 
-    public Refeicao(int id, LocalDate data, String descricao, float preco, int capacidadeMaxima, List<OpcaoCarne> carnes) {
-        this.id = id;
+    public Refeicao() {
+    }
+    
+    public Refeicao(LocalDate data, String descricao, float preco, int capacidadeMaxima) {
         this.data = data;
         this.descricao = descricao;
         this.preco = preco;
         this.capacidadeMaxima = capacidadeMaxima;
-        this.carnes = carnes;
     }
+    
+    public void salvarCarne(OpcaoCarne carne) {
+        carnes.add(carne);
+    }
+
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
@@ -30,6 +50,5 @@ public class Refeicao {
     public void setPreco(float preco) { this.preco = preco; }
     public int getCapacidadeMaxima() { return capacidadeMaxima; }
     public void setCapacidadeMaxima(int capacidadeMaxima) { this.capacidadeMaxima = capacidadeMaxima; }
-    public List<OpcaoCarne> getCarnes() { return carnes; }
-    public void setCarnes(List<OpcaoCarne> carnes) { this.carnes = carnes; }
+    public Set<OpcaoCarne> getCarnes() { return carnes; }
 }

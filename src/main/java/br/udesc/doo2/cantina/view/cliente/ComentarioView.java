@@ -4,6 +4,8 @@
  */
 package br.udesc.doo2.cantina.view.cliente;
 
+import javax.swing.JButton;
+
 /**
  *
  * @author fajre
@@ -18,6 +20,14 @@ public class ComentarioView extends javax.swing.JFrame {
     public ComentarioView() {
         initComponents();
     }
+    
+    public javax.swing.JTextArea getTxtComentario() {
+        return this.txtComentario;
+    }
+    
+    public javax.swing.JButton getBtnEnviar() {
+        return this.btnEnviar;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -29,19 +39,19 @@ public class ComentarioView extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
+        txtComentario = new javax.swing.JTextArea();
+        btnEnviar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtComentario.setColumns(20);
+        txtComentario.setRows(5);
+        jScrollPane1.setViewportView(txtComentario);
 
-        jButton1.setText("Enviar");
+        btnEnviar.setText("Enviar");
 
-        jLabel1.setText("Comentario");
+        jLabel1.setText("Envie o seu comentário / sugestão para a cantina");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -50,26 +60,26 @@ public class ComentarioView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
+                        .addGap(43, 43, 43)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(57, 57, 57)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(144, 144, 144)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(158, 158, 158)
-                        .addComponent(jLabel1)))
-                .addContainerGap(73, Short.MAX_VALUE))
+                        .addGap(141, 141, 141)
+                        .addComponent(btnEnviar)))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(58, 58, 58)
+                .addGap(67, 67, 67)
                 .addComponent(jLabel1)
-                .addGap(28, 28, 28)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(jButton1)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnEnviar)
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
         pack();
@@ -101,9 +111,9 @@ public class ComentarioView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnEnviar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea txtComentario;
     // End of variables declaration//GEN-END:variables
 }

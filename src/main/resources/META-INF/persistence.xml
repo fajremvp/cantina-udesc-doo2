@@ -11,6 +11,12 @@
 	<class>br.udesc.doo2.cantina.model.Usuario</class>
 	<class>br.udesc.doo2.cantina.model.Cliente</class>
 	<class>br.udesc.doo2.cantina.model.Administrador</class>
+<<<<<<< HEAD
+    <class>br.udesc.doo2.cantina.model.Refeicao</class>
+=======
+	<class>br.udesc.doo2.cantina.model.Refeicao</class>
+>>>>>>> a1c70a8ab44cc51431b8d2687bb44d53dcdfd63b
+    <class>br.udesc.doo2.cantina.model.OpcaoCarne</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />

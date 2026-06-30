@@ -9,5 +9,5 @@ public interface RefeicaoRepository {
     void atualizar(Refeicao refeicao);
     Refeicao buscarPorId(int id);
     List<Refeicao> buscarTodas();
-    List<Refeicao> buscarPorData(LocalDate data);
+    Refeicao buscarPorData(LocalDate data);
 }

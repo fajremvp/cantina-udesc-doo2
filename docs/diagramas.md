@@ -222,3 +222,12 @@ deactivate View
 ```
 </details>
 
+## Issue #20 - Menu and Meat Option Management (Admin)
+**Autor:** Gustavo Hoffmann - @GustavoHoffmann3
+
+### 4. Cadastrar Refeição
+![Cadastrar Refeição](docs/assets/CadastrarRefeicao.jpg)
+
+### 5. Cadastrar Opção de Carne
+![Cadastrar Opção de Carne](docs/assets/CadastrarOpcaoCarne.jpg)
+

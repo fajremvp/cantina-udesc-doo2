@@ -6,30 +6,13 @@ import br.udesc.doo2.cantina.model.Administrador;
 import br.udesc.doo2.cantina.model.Cliente;
 import br.udesc.doo2.cantina.repository.UsuarioRepository;
 import br.udesc.doo2.cantina.view.LoginView;
-// TODO: ajustar os imports abaixo quando as Home Views estiverem prontas
-// na pasta correta (administrador/cliente).
 import br.udesc.doo2.cantina.view.administrador.HomeAdministradorView;
 import br.udesc.doo2.cantina.view.cliente.HomeClienteView;
+import br.udesc.doo2.cantina.view.CadastroView;
+import br.udesc.doo2.cantina.controller.CadastroController;
 
 import javax.swing.JOptionPane;
 
-/**
- * Controller orquestrador do fluxo de Login. Diferente de um Controller
- * "passivo", este registra os Listeners diretamente nos componentes da
- * LoginView (recebida no construtor) e decide todo o fluxo: chamar o DAO,
- * tratar a UsuarioException, abrir a Home correta e fechar a tela de login.
- *
- * A View, portanto, fica "burra": só expõe os componentes (getters) e não
- * conhece HomeClienteView/HomeAdministradorView nem o DAO.
- *
- * CONTRATO ASSUMIDO da LoginView (ajustar nomes conforme implementação real):
- *   - getCampoMatricula()      -> JTextField (aba Cliente)
- *   - getCampoSenhaCliente()   -> JPasswordField (aba Cliente)
- *   - getBotaoEntrarCliente()  -> JButton (aba Cliente)
- *   - getBotaoCadastrar()      -> JButton (aba Cliente)
- *   - getCampoSenhaAdmin()     -> JPasswordField (aba Administrador)
- *   - getBotaoEntrarAdmin()    -> JButton (aba Administrador)
- */
 public class LoginController {
 
     private final LoginView view;
@@ -116,15 +99,10 @@ public class LoginController {
         }
     }
 
-    /**
-     * Abre a tela de cadastro de Cliente. Implementação completa pertence
-     * à Issue #22 - aqui deixamos apenas a navegação básica para não
-     * deixar o botão "morto" enquanto a Issue #22 não for desenvolvida.
-     */
     private void abrirTelaCadastro() {
-        // TODO (Issue #22): substituir por CadastroController quando este
-        // existir, ou abrir CadastroView diretamente se o fluxo for simples.
-        new br.udesc.doo2.cantina.view.CadastroView().setVisible(true);
+        CadastroView cadastroView = new CadastroView();
+        new CadastroController(cadastroView);
+        cadastroView.setVisible(true);
         view.dispose();
     }
 }

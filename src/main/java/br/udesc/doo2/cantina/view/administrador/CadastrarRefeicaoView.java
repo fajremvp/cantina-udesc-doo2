@@ -57,12 +57,8 @@ public class CadastrarRefeicaoView extends javax.swing.JFrame {
         return (String) cbCarne1.getSelectedItem();
     }
     
-    public String getCarne2Selecionada() throws RefeicaoException {
-<<<<<<< HEAD
-        if (cbCarne1.getSelectedItem().equals(cbCarne2.getSelectedItem())) {
-=======
+    public String getCarne2Selecionada() throws RefeicaoException 
         if (cbCarne2.getSelectedItem().equals(cbCarne1.getSelectedItem())) {
->>>>>>> a1c70a8ab44cc51431b8d2687bb44d53dcdfd63b
             throw new RefeicaoException("As opções de carne não podem ser iguais");
         }
         return (String) cbCarne2.getSelectedItem();

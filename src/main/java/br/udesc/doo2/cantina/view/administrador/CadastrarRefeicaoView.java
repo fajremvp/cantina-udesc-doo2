@@ -78,7 +78,11 @@ public class CadastrarRefeicaoView extends javax.swing.JFrame {
         String precoString = txtPreco.getText();
         
         try {
-            return Float.parseFloat(precoString);
+            float preco = Float.parseFloat(precoString);
+            
+            if (preco <= 0) {
+                throw new RefeicaoException("O preço não pode ser menor que 1");
+            } return preco;
         } catch (NumberFormatException ex){
             throw new RefeicaoException("Informe um preço válido");
         }

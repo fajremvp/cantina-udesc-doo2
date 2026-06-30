@@ -1,22 +1,32 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package br.udesc.doo2.cantina.view;
 
-/**
- *
- * @author fajre
- */
+import br.udesc.doo2.cantina.model.Usuario;
+import br.udesc.doo2.cantina.model.Cliente;
+
 public class AlterarCadastroView extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AlterarCadastroView.class.getName());
 
-    /**
-     * Creates new form AlterarCadastroView
-     */
-    public AlterarCadastroView() {
+    private Usuario usuarioLogado;
+
+    // Construtor modificado para receber quem está logado
+    public AlterarCadastroView(Usuario usuarioLogado) {
+        this.usuarioLogado = usuarioLogado;
         initComponents();
+        preencherCampos();
+    }
+
+    private void preencherCampos() {
+        txtNome.setText(usuarioLogado.getNome());
+        
+        // Polimorfismo: Se for cliente, preenche a matrícula. Se for Admin, desabilita o campo
+        if (usuarioLogado instanceof Cliente) {
+            Cliente c = (Cliente) usuarioLogado;
+            txtMatricula.setText(c.getMatricula());
+        } else {
+            txtMatricula.setText("N/A (Admin)");
+            txtMatricula.setEnabled(false);
+        }
     }
 
     /**
@@ -28,17 +38,68 @@ public class AlterarCadastroView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        txtNome = new javax.swing.JTextField();
+        lblMatricula = new javax.swing.JLabel();
+        txtMatricula = new javax.swing.JTextField();
+        lblSenha = new javax.swing.JLabel();
+        btnSalvar = new javax.swing.JButton();
+        btnVoltar = new javax.swing.JButton();
+        txtSenha = new javax.swing.JPasswordField();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setText("Nome:");
+
+        lblMatricula.setText("Matrícula:");
+
+        lblSenha.setText("Senha:");
+
+        btnSalvar.setText("Salvar");
+
+        btnVoltar.setText("Voltar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(93, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblSenha)
+                            .addComponent(lblMatricula)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                            .addComponent(txtMatricula)
+                            .addComponent(txtSenha))))
+                .addGap(109, 109, 109))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(68, 68, 68)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblMatricula)
+                    .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblSenha)
+                    .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(btnSalvar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnVoltar)
+                .addContainerGap(81, Short.MAX_VALUE))
         );
 
         pack();
@@ -66,9 +127,28 @@ public class AlterarCadastroView extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new AlterarCadastroView().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new AlterarCadastroView(null).setVisible(true));
+    }
+    
+    public Usuario getUsuarioLogado() { return usuarioLogado; }
+    public javax.swing.JTextField getCampoNome() { return txtNome; }
+    public javax.swing.JTextField getCampoMatricula() { return txtMatricula; }
+    public javax.swing.JPasswordField getCampoSenha() { return txtSenha; }
+    public javax.swing.JButton getBotaoSalvar() { return btnSalvar; }
+    public javax.swing.JButton getBotaoVoltar() { return btnVoltar; }
+    
+    public void setMensagemErro(String msg) { 
+        javax.swing.JOptionPane.showMessageDialog(this, msg, "Erro", javax.swing.JOptionPane.ERROR_MESSAGE); 
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSalvar;
+    private javax.swing.JButton btnVoltar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblMatricula;
+    private javax.swing.JLabel lblSenha;
+    private javax.swing.JTextField txtMatricula;
+    private javax.swing.JTextField txtNome;
+    private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables
 }

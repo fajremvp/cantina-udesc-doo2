@@ -14,8 +14,6 @@ public class HomeClienteView extends javax.swing.JFrame {
     public HomeClienteView(Cliente clienteLogado) {
         this.clienteLogado = clienteLogado;
         initComponents();
-        // TODO: usar clienteLogado.getNome() para exibir boas-vindas na tela,
-        // se/quando um JLabel for adicionado para isso no Form Editor.
     }
     
     public Cliente getClienteLogado() {

@@ -133,3 +133,92 @@ deactivate View
 ```
 </details>
 
+## Issue #22 - Customer Registration and Profile Management
+**Autor:** João Vitor Fogaça de Oliveira - @fajremvp
+
+### 3. Cadastro Cliente
+![Cadastro Cliente](https://www.plantuml.com/plantuml/png/dPRFRZet4CVlVeefbzyYaQhdbLgb4AfKofyqaFPO3TufkFNQrFP2bBU9UgXKAQS-mhvORI-xPXE2A8TaRVETZ-VFpCAbTMXSLKgOO87M6JsHWfGZveIJ15S2bmPBX89WHdzMzJ-A2uIBJWwjdY5tsi2JhT083MXXuDVrQzXaIcyqy4Ov7B0r6YUuMADoCDW8skOjxcU_6GJZiEZhk5PU82MPJZtfZg9DslOj2zJvpg-hx--Zr3_xcie9cSz8hV39hsmKnIqhqE42BS5WWOhhVFRJZN3KKCQCjG5VV1Tzpk7142c-8WDtkgGHtA8pzHkl908rIA2G2uu6g8GltklVX2dHV0af51jqr4JFml_0JN7bu0mwD6q2ic6osOkUfNNoQqbkWkLQ1w-yNGD_HrUwfAF68HWHOlcCKBQ2evYOXiyGDgQTeNJ0WzY2NXYnH5V_QuJVRV35FnW0x9bzoDFAw6tRZTDdJcidjCe6Srq4e6tHjlvBz_bV3uQHVSX_kzBRMx8Mb-GdG-hbkK1FtFcM0psB1K59Ac3BC6baZ6QCfAMMkcwQIXI70W_TdCEYiXpDWpQfHbqn6WVQLWdwUE2VqNoSmsnwCvtCssc6NwwdZzDKJFWshT-Xngmva0xArEc_rw_0coR5eZ695uxXelMNxwuY5ISR2zt92jhdjwVHstwP4-HPM1TMVKOADvwVrpAt_R38kbvmRNbFxvbJYMSqJRIBZRDNZ4BOjLRrsuRamKeeKgkg14EsakwyEgXAol-P-lWE2Ay4W-OQxIgBSvyYxnXHs1t7tOVxLnxGrnNK1vpI0OgsxGHatupYst2Kq2D8y_GPBURJejoWYLzwErelgluClfl37-zcqyUvVypleMgA3Lbq9Dq-0jluuyHQ_xfJ7RfYVB3S-eyp2hpHee3CLfoirSFJItry4BfV4OPGYXSiz5Vm0zP_8_YFXGAkIx0LfcO-CcrzRwL3yu06Rm8dEtMUeZfu6_Ma2XR-s5wKoNx_D9gmIo-kIlaV)
+
+<details>
+<summary>Ver código fonte (PlantUML)</summary>
+
+```plantuml
+@startuml CadastroCliente
+title Diagrama de Sequência - Cadastro Cliente
+
+actor Usuario as "Usuário (novo cliente)"
+participant "view:CadastroView" as View
+participant "controller:CadastroController" as Controller
+participant "dao:UsuarioDAO" as DAO
+participant "util:SenhaUtils" as Senha
+database "banco:SQLite" as DB
+
+Usuario -> View: Preencher Nome, Matrícula e Senha e clicar em 'Confirmar'
+activate View
+
+View -> Controller: tratarCadastro()
+activate Controller
+
+Controller -> View: getCampoNome()
+View --> Controller: nome
+Controller -> View: getCampoMatricula()
+View --> Controller: matricula
+Controller -> View: getCampoSenha()
+View --> Controller: senha
+
+alt campos obrigatórios vazios
+    Controller -> Controller: throw UsuarioException("Todos os campos são obrigatórios.")
+    Controller -> View: showMessageDialog("Todos os campos são obrigatórios.")
+    Controller --> Usuario: exibe mensagem de erro
+
+else campos preenchidos
+    Controller -> DAO: buscarPorMatricula(matricula)
+    activate DAO
+    DAO -> DB: SELECT Cliente WHERE matricula = matricula
+    activate DB
+
+    alt matrícula já cadastrada
+        DB --> DAO: cliente encontrado
+        deactivate DB
+        DAO --> Controller: cliente existente
+        deactivate DAO
+
+        Controller -> Controller: throw UsuarioException("Matrícula já está cadastrada.")
+        Controller -> View: showMessageDialog("Matrícula já está cadastrada.")
+        Controller --> Usuario: exibe mensagem de erro
+
+    else matrícula disponível
+        DB --> DAO: nenhum resultado
+        deactivate DB
+        DAO --> Controller: null
+        deactivate DAO
+
+        Controller -> Senha: gerarHash(senha)
+        activate Senha
+        Senha --> Controller: hashSenha
+        deactivate Senha
+
+        Controller -> Controller: new Cliente(0, nome, hashSenha, matricula)
+
+        Controller -> DAO: salvar(novoCliente)
+        activate DAO
+        DAO -> DB: INSERT INTO usuario (nome, matricula, senha, tipo_usuario)
+        activate DB
+        DB --> DAO: ok
+        deactivate DB
+        DAO --> Controller: void (sucesso)
+        deactivate DAO
+
+        Controller -> View: showMessageDialog("Cadastro realizado! Faça login com sua matrícula.")
+        Controller -> Controller: voltarParaLogin()
+        Controller --> Usuario: exibe LoginView
+    end
+end
+
+deactivate Controller
+deactivate View
+
+@enduml
+```
+</details>
+

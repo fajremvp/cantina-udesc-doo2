@@ -1,18 +1,36 @@
 package br.udesc.doo2.cantina.dao;
 
+import br.udesc.doo2.cantina.infra.Conexao;
 import br.udesc.doo2.cantina.model.Refeicao;
 import br.udesc.doo2.cantina.repository.RefeicaoRepository;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.*;
 
 public class RefeicaoDAO implements RefeicaoRepository {
-
-    public static List<Refeicao> refeicoes = new ArrayList<>();
     
     @Override
     public void salvar(Refeicao refeicao) {
-        refeicoes.add(refeicao);
+
+        EntityManager em = Conexao.getEntityManager();
+
+        try {
+
+            em.getTransaction().begin();
+
+            em.persist(refeicao);
+
+            em.getTransaction().commit();
+
+        } catch (Exception e) {
+
+            em.getTransaction().rollback();
+            throw e;
+
+        } finally {
+
+            em.close();
+        }
     }
 
     @Override
@@ -22,27 +40,52 @@ public class RefeicaoDAO implements RefeicaoRepository {
 
     @Override
     public Refeicao buscarPorId(int id) {
-        for (Refeicao r : refeicoes) {
-            if (r.getId() == id) {
-                return r;
-            }
+
+        EntityManager em = Conexao.getEntityManager();
+
+        try {
+            return em.find(Refeicao.class, id);
+        } finally {
+            em.close();
         }
-        return null;
     }
 
     @Override
     public List<Refeicao> buscarTodas() {
-        return refeicoes;
+
+        EntityManager em = Conexao.getEntityManager();
+
+        try {
+
+            return em.createQuery(
+                    "FROM Refeicao",
+                    Refeicao.class
+            ).getResultList();
+
+        } finally {
+
+            em.close();
+        }
     }
 
     @Override
     public Refeicao buscarPorData(LocalDate data) {
-        for (Refeicao r : refeicoes) {
-            if (r.getData() == data) {
-                return r;
-            }
+
+        EntityManager em = Conexao.getEntityManager();
+
+        try {
+
+            return em.createQuery(
+                    "FROM Refeicao r WHERE r.data = :data",
+                    Refeicao.class
+            )
+            .setParameter("data", data)
+            .getSingleResult();
+
+        } finally {
+
+            em.close();
         }
-        return null;
     }
     
 }

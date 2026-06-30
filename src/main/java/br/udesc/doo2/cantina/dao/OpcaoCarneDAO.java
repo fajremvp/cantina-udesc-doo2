@@ -1,17 +1,36 @@
 package br.udesc.doo2.cantina.dao;
 
+import br.udesc.doo2.cantina.infra.Conexao;
 import br.udesc.doo2.cantina.model.OpcaoCarne;
 import br.udesc.doo2.cantina.repository.OpcaoCarneRepository;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.*;
 
 public class OpcaoCarneDAO implements OpcaoCarneRepository {
-
-    public static Set<OpcaoCarne> carnes = new HashSet<>();
     
     @Override
     public void salvar(OpcaoCarne opcaoCarne) {
-        carnes.add(opcaoCarne);
+
+        EntityManager em = Conexao.getEntityManager();
+
+        try {
+
+            em.getTransaction().begin();
+
+            em.persist(opcaoCarne);
+
+            em.getTransaction().commit();
+
+        } catch (Exception e) {
+
+            em.getTransaction().rollback();
+            throw e;
+
+        } finally {
+
+            em.close();
+        }
     }
 
     @Override
@@ -21,17 +40,42 @@ public class OpcaoCarneDAO implements OpcaoCarneRepository {
 
     @Override
     public OpcaoCarne buscarPorNome(String nome) {
-        for (OpcaoCarne c : carnes) {
-            if (c.getNome().equals(nome)) {
-                return c;
-            }
+
+        EntityManager em = Conexao.getEntityManager();
+
+        try {
+
+            return em.createQuery(
+                    "FROM OpcaoCarne c WHERE c.nome = :nome",
+                    OpcaoCarne.class
+            )
+            .setParameter("nome", nome)
+            .getSingleResult();
+
+        } finally {
+
+            em.close();
         }
-        return null;
     }
 
     @Override
     public Set<OpcaoCarne> buscarTodas() {
-        return carnes;
+
+        EntityManager em = Conexao.getEntityManager();
+
+        try {
+
+            return new HashSet<>(
+                em.createQuery(
+                    "FROM OpcaoCarne",
+                    OpcaoCarne.class
+                ).getResultList()
+            );
+
+        } finally {
+
+            em.close();
+        }
     }
     
 }

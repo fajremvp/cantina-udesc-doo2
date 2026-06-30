@@ -51,14 +51,14 @@ public class CadastrarRefeicaoView extends javax.swing.JFrame {
     }
     
     public String getCarne1Selecionada() throws RefeicaoException {
-        if (cbCarne1.getSelectedItem() == cbCarne2.getSelectedItem()) {
+        if (cbCarne1.getSelectedItem().equals(cbCarne2.getSelectedItem())) {
             throw new RefeicaoException("As opções de carne não podem ser iguais");
         }
         return (String) cbCarne1.getSelectedItem();
     }
     
     public String getCarne2Selecionada() throws RefeicaoException {
-        if (cbCarne1.getSelectedItem() == cbCarne2.getSelectedItem()) {
+        if (cbCarne2.getSelectedItem().equals(cbCarne1.getSelectedItem())) {
             throw new RefeicaoException("As opções de carne não podem ser iguais");
         }
         return (String) cbCarne2.getSelectedItem();
@@ -78,7 +78,11 @@ public class CadastrarRefeicaoView extends javax.swing.JFrame {
         String precoString = txtPreco.getText();
         
         try {
-            return Float.parseFloat(precoString);
+            float preco = Float.parseFloat(precoString);
+            
+            if (preco <= 0) {
+                throw new RefeicaoException("O preço não pode ser menor que 1");
+            } return preco;
         } catch (NumberFormatException ex){
             throw new RefeicaoException("Informe um preço válido");
         }
@@ -245,7 +249,6 @@ public class CadastrarRefeicaoView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrarRefeicao;
     private javax.swing.JComboBox<String> cbCarne1;

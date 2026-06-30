@@ -226,8 +226,8 @@ deactivate View
 **Autor:** Gustavo Hoffmann - @GustavoHoffmann3
 
 ### 4. Cadastrar Refeição
-![Cadastrar Refeição](docs/assets/CadastrarRefeicao.jpg)
+![Cadastrar Refeição](https://github.com/fajremvp/cantina-udesc-doo2/blob/feat/telas-refeicao-carnes/docs/assets/CadastrarOpcaoCarne.jpg)
 
 ### 5. Cadastrar Opção de Carne
-![Cadastrar Opção de Carne](docs/assets/CadastrarOpcaoCarne.jpg)
+![Cadastrar Opção de Carne](https://github.com/fajremvp/cantina-udesc-doo2/blob/feat/telas-refeicao-carnes/docs/assets/CadastrarOpcaoCarne.jpg)
 

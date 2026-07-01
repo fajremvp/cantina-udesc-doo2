@@ -35,6 +35,19 @@ Para manter o projeto organizado, as especificações detalhadas de negócio e r
 
 ---
 
+## 🗃️ Configuração do Banco de Dados (primeiro uso)
+
+O banco SQLite é criado automaticamente pelo Hibernate na primeira execução.
+Após iniciar o sistema pela primeira vez, rode o seed para popular os dados de demonstração:
+
+```bash
+# Requer sqlite3 instalado
+sqlite3 database/cantina.db < database/seed.sql
+```
+
+**Credenciais de demonstração:**
+- Administrador - senha: `admin123`
+
 ### 👥 Desenvolvedores (Equipe)
 
 - Gustavo Hoffmann

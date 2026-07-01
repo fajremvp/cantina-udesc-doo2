@@ -34,7 +34,7 @@
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="btnConsultarPedidos" alignment="0" max="32767" attributes="0"/>
                           <Component id="btnCadastrarCarnes" alignment="0" pref="128" max="32767" attributes="0"/>
-                          <Component id="btnGerarRelatórios" alignment="1" max="32767" attributes="0"/>
+                          <Component id="btnGerarRelatorios" alignment="1" max="32767" attributes="0"/>
                           <Component id="btnComentarios" alignment="0" max="32767" attributes="0"/>
                           <Component id="btnAlterarCadastro" alignment="0" max="32767" attributes="0"/>
                       </Group>
@@ -54,7 +54,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnConsultarPedidos" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="btnGerarRelatórios" min="-2" max="-2" attributes="0"/>
+              <Component id="btnGerarRelatorios" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnComentarios" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -80,9 +80,9 @@
         <Property name="text" type="java.lang.String" value="Consultar Pedidos"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnGerarRelat&#xf3;rios">
+    <Component class="javax.swing.JButton" name="btnGerarRelatorios">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Gerar relatorios"/>
+        <Property name="text" type="java.lang.String" value="Gerar Relat&#xf3;rios"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnComentarios">

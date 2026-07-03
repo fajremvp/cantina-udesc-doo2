@@ -4,12 +4,20 @@
  */
 package br.udesc.doo2.cantina.view.cliente;
 
+import br.udesc.doo2.cantina.enums.TipoConsumo;
+import br.udesc.doo2.cantina.model.OpcaoCarne;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Set;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author fajre
  */
 public class PedidoView extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PedidoView.class.getName());
 
     /**
@@ -17,6 +25,59 @@ public class PedidoView extends javax.swing.JFrame {
      */
     public PedidoView() {
         initComponents();
+    }
+
+    public void adicionarAcaoBtnFinalizar(ActionListener acao) {
+        btnFinalizarPedido.addActionListener(acao);
+    }
+
+    public void iniciarOpcoesCarne(Set<OpcaoCarne> carnes) {
+        ArrayList<OpcaoCarne> opcoes = new ArrayList<>(carnes);
+        opcoes.sort(Comparator.comparing(OpcaoCarne::getNome));
+
+        rbtnCarne1Pedido.setVisible(opcoes.size() > 0);
+        rbtnCarne2Pedido.setVisible(opcoes.size() > 1);
+
+        if (opcoes.size() > 0) {
+            rbtnCarne1Pedido.setText(opcoes.get(0).getNome());
+        }
+        if (opcoes.size() > 1) {
+            rbtnCarne2Pedido.setText(opcoes.get(1).getNome());
+        }
+    }
+
+    public String getOpcaoCarneSelecionada() {
+        if (rbtnCarne1Pedido.isSelected()) {
+            return rbtnCarne1Pedido.getText();
+        }
+        if (rbtnCarne2Pedido.isSelected()) {
+            return rbtnCarne2Pedido.getText();
+        }
+        return null;
+    }
+
+    public TipoConsumo getTipoConsumoSelecionado() {
+        if (rbtnOpcaoConsumoLevar.isSelected()) {
+            return TipoConsumo.LEVAR;
+        }
+        if (rbtnOpcaoConsumoLocal.isSelected()) {
+            return TipoConsumo.LOCAL;
+        }
+        return null;
+    }
+
+    public void apresentarMensagem(String mensagem) {
+        JOptionPane.showMessageDialog(this, mensagem);
+    }
+
+    public void limparSelecoes() {
+        btngroupOpcaoCarne.clearSelection();
+        btngroupOpcaoConsumo.clearSelection();
+    }
+
+    public void apresentarTela() {
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     /**
@@ -118,7 +179,7 @@ public class PedidoView extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

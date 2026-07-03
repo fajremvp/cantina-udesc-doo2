@@ -4,12 +4,18 @@
  */
 package br.udesc.doo2.cantina.view.administrador;
 
+import br.udesc.doo2.cantina.enums.TipoConsumo;
+import br.udesc.doo2.cantina.model.Pedido;
+import java.awt.event.ActionListener;
+import java.util.List;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author fajre
  */
 public class ConsultarPedidosView extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ConsultarPedidosView.class.getName());
 
     /**
@@ -17,6 +23,39 @@ public class ConsultarPedidosView extends javax.swing.JFrame {
      */
     public ConsultarPedidosView() {
         initComponents();
+    }
+
+    public void adicionarAcaoBtnBuscar(ActionListener acao) {
+        btnBuscarPedidoNomeCliente.addActionListener(acao);
+    }
+
+    public String getNomeCliente() {
+        return txtBuscaNomeCliente.getText().trim();
+    }
+
+    public TipoConsumo getTipoConsumoSelecionado() {
+        String item = (String) cbboxTipoConsumoBuscaListaPedidos.getSelectedItem();
+
+        if (item == null || item.isBlank()) {
+            return null;
+        }
+        if (item.equalsIgnoreCase("Levar")) {
+            return TipoConsumo.LEVAR;
+        }
+        return TipoConsumo.LOCAL;
+    }
+
+    public void apresentarPedidos(List<Pedido> pedidos) {
+        tableListaPedidos.setModel(new PedidoTableModel(pedidos));
+    }
+
+    public void apresentarMensagem(String mensagem) {
+        JOptionPane.showMessageDialog(this, mensagem);
+    }
+
+    public void apresentarTela() {
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     /**
@@ -32,6 +71,11 @@ public class ConsultarPedidosView extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableListaPedidos = new javax.swing.JTable();
         btnConfirmaRetiradaPedido = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        txtBuscaNomeCliente = new javax.swing.JTextField();
+        btnBuscarPedidoNomeCliente = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        cbboxTipoConsumoBuscaListaPedidos = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -61,32 +105,62 @@ public class ConsultarPedidosView extends javax.swing.JFrame {
 
         btnConfirmaRetiradaPedido.setText("Confirmar Retirada");
 
+        jLabel2.setText("Nome");
+
+        btnBuscarPedidoNomeCliente.setText("Realizar Busca");
+
+        jLabel3.setText("Tipo Consumo");
+
+        cbboxTipoConsumoBuscaListaPedidos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Levar", "Local" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
+                        .addGap(6, 6, 6)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(183, 183, 183)
-                        .addComponent(btnConfirmaRetiradaPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(54, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnConfirmaRetiradaPedido, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                                    .addComponent(jLabel2)
+                                    .addComponent(txtBuscaNomeCliente)
+                                    .addComponent(btnBuscarPedidoNomeCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel3)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(25, 25, 25)
+                                .addComponent(cbboxTipoConsumoBuscaListaPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(btnConfirmaRetiradaPedido)
-                .addGap(19, 19, 19))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtBuscaNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbboxTipoConsumoBuscaListaPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                        .addComponent(btnBuscarPedidoNomeCliente)
+                        .addGap(66, 66, 66)
+                        .addComponent(btnConfirmaRetiradaPedido)
+                        .addGap(42, 42, 42))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         pack();
@@ -99,7 +173,7 @@ public class ConsultarPedidosView extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -118,9 +192,14 @@ public class ConsultarPedidosView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscarPedidoNomeCliente;
     private javax.swing.JButton btnConfirmaRetiradaPedido;
+    private javax.swing.JComboBox<String> cbboxTipoConsumoBuscaListaPedidos;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableListaPedidos;
+    private javax.swing.JTextField txtBuscaNomeCliente;
     // End of variables declaration//GEN-END:variables
 }

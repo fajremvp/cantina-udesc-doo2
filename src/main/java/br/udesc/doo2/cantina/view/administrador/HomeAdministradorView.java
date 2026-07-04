@@ -21,7 +21,7 @@ public class HomeAdministradorView extends javax.swing.JFrame {
         btnCadastrarRefeicao.addActionListener(e-> acaoCadastrarRefeicao());
         btnCadastrarCarnes.addActionListener(e->acaoCadastrarCarnes());
         btnConsultarPedidos.addActionListener(e->acaoConsultarPedidos());
-        btnGerarRelatórios.addActionListener(e->acaoGerarRelatórios());
+        btnGerarRelatorios.addActionListener(e->acaoGerarRelatorios());
         btnComentarios.addActionListener(e->acaoComentarios());
         btnAlterarCadastro.addActionListener(e->acaoAlterarCadastro());
     }
@@ -47,7 +47,7 @@ public class HomeAdministradorView extends javax.swing.JFrame {
         
     }
     
-    public void acaoGerarRelatórios() {
+    public void acaoGerarRelatorios() {
         
     }
     
@@ -71,7 +71,7 @@ public class HomeAdministradorView extends javax.swing.JFrame {
         btnCadastrarRefeicao = new javax.swing.JButton();
         btnCadastrarCarnes = new javax.swing.JButton();
         btnConsultarPedidos = new javax.swing.JButton();
-        btnGerarRelatórios = new javax.swing.JButton();
+        btnGerarRelatorios = new javax.swing.JButton();
         btnComentarios = new javax.swing.JButton();
         btnAlterarCadastro = new javax.swing.JButton();
 
@@ -83,7 +83,7 @@ public class HomeAdministradorView extends javax.swing.JFrame {
 
         btnConsultarPedidos.setText("Consultar Pedidos");
 
-        btnGerarRelatórios.setText("Gerar relatorios");
+        btnGerarRelatorios.setText("Gerar Relatórios");
 
         btnComentarios.setText("Comentarios");
 
@@ -103,7 +103,7 @@ public class HomeAdministradorView extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(btnConsultarPedidos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnCadastrarCarnes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                            .addComponent(btnGerarRelatórios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnGerarRelatorios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnComentarios, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnAlterarCadastro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -118,7 +118,7 @@ public class HomeAdministradorView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnConsultarPedidos)
                 .addGap(18, 18, 18)
-                .addComponent(btnGerarRelatórios)
+                .addComponent(btnGerarRelatorios)
                 .addGap(18, 18, 18)
                 .addComponent(btnComentarios)
                 .addGap(18, 18, 18)
@@ -162,6 +162,6 @@ public class HomeAdministradorView extends javax.swing.JFrame {
     private javax.swing.JButton btnCadastrarRefeicao;
     private javax.swing.JButton btnComentarios;
     private javax.swing.JButton btnConsultarPedidos;
-    private javax.swing.JButton btnGerarRelatórios;
+    private javax.swing.JButton btnGerarRelatorios;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,6 +1,12 @@
 package br.udesc.doo2.cantina.view.administrador;
 
+import br.udesc.doo2.cantina.controller.OpcaoCarneController;
+import br.udesc.doo2.cantina.controller.RefeicaoController;
+import br.udesc.doo2.cantina.dao.OpcaoCarneDAO;
+import br.udesc.doo2.cantina.dao.RefeicaoDAO;
 import br.udesc.doo2.cantina.model.Administrador;
+import br.udesc.doo2.cantina.repository.OpcaoCarneRepository;
+import br.udesc.doo2.cantina.repository.RefeicaoRepository;
 
 public class HomeAdministradorView extends javax.swing.JFrame {
     
@@ -11,10 +17,46 @@ public class HomeAdministradorView extends javax.swing.JFrame {
     public HomeAdministradorView(Administrador administradorLogado) {
         this.administradorLogado = administradorLogado;
         initComponents();
+        
+        btnCadastrarRefeicao.addActionListener(e-> acaoCadastrarRefeicao());
+        btnCadastrarCarnes.addActionListener(e->acaoCadastrarCarnes());
+        btnConsultarPedidos.addActionListener(e->acaoConsultarPedidos());
+        btnGerarRelatorios.addActionListener(e->acaoGerarRelatorios());
+        btnComentarios.addActionListener(e->acaoComentarios());
+        btnAlterarCadastro.addActionListener(e->acaoAlterarCadastro());
     }
 
     public Administrador getAdministradorLogado() {
         return administradorLogado;
+    }
+    
+    public void acaoCadastrarRefeicao() {
+        CadastrarRefeicaoView view = new CadastrarRefeicaoView();
+        RefeicaoRepository repositoryRefeicao = new RefeicaoDAO();
+        OpcaoCarneRepository repositoryCarne = new OpcaoCarneDAO();
+        RefeicaoController controller = new RefeicaoController(view, repositoryRefeicao, repositoryCarne);
+    }
+    
+    public void acaoCadastrarCarnes() {
+        CadastrarCarnesView view = new CadastrarCarnesView();
+        OpcaoCarneRepository repositoryCarne = new OpcaoCarneDAO();
+        OpcaoCarneController controller = new OpcaoCarneController(view, repositoryCarne);
+    }
+    
+    public void acaoConsultarPedidos() {
+        
+    }
+    
+    public void acaoGerarRelatorios() {
+        
+    }
+    
+    public void acaoComentarios() {
+        
+    }
+    
+    public void acaoAlterarCadastro() {
+        
     }
 
     /**
@@ -26,17 +68,62 @@ public class HomeAdministradorView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnCadastrarRefeicao = new javax.swing.JButton();
+        btnCadastrarCarnes = new javax.swing.JButton();
+        btnConsultarPedidos = new javax.swing.JButton();
+        btnGerarRelatorios = new javax.swing.JButton();
+        btnComentarios = new javax.swing.JButton();
+        btnAlterarCadastro = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        btnCadastrarRefeicao.setText("Cadastrar Refeição");
+
+        btnCadastrarCarnes.setText("Cadastrar Carnes");
+
+        btnConsultarPedidos.setText("Consultar Pedidos");
+
+        btnGerarRelatorios.setText("Gerar Relatórios");
+
+        btnComentarios.setText("Comentarios");
+
+        btnAlterarCadastro.setText("Alterar cadastro");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(178, 178, 178)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnCadastrarRefeicao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(194, 194, 194))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnConsultarPedidos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCadastrarCarnes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                            .addComponent(btnGerarRelatorios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnComentarios, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAlterarCadastro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(81, 81, 81)
+                .addComponent(btnCadastrarRefeicao)
+                .addGap(18, 18, 18)
+                .addComponent(btnCadastrarCarnes)
+                .addGap(18, 18, 18)
+                .addComponent(btnConsultarPedidos)
+                .addGap(18, 18, 18)
+                .addComponent(btnGerarRelatorios)
+                .addGap(18, 18, 18)
+                .addComponent(btnComentarios)
+                .addGap(18, 18, 18)
+                .addComponent(btnAlterarCadastro)
+                .addContainerGap(91, Short.MAX_VALUE))
         );
 
         pack();
@@ -70,5 +157,11 @@ public class HomeAdministradorView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAlterarCadastro;
+    private javax.swing.JButton btnCadastrarCarnes;
+    private javax.swing.JButton btnCadastrarRefeicao;
+    private javax.swing.JButton btnComentarios;
+    private javax.swing.JButton btnConsultarPedidos;
+    private javax.swing.JButton btnGerarRelatorios;
     // End of variables declaration//GEN-END:variables
 }

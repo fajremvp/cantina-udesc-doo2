@@ -222,3 +222,12 @@ deactivate View
 ```
 </details>
 
+## Issue #20 - Menu and Meat Option Management (Admin)
+**Autor:** Gustavo Hoffmann - @GustavoHoffmann3
+
+### 4. Cadastrar Refeição
+![Cadastrar Refeição](https://github.com/fajremvp/cantina-udesc-doo2/blob/feat/telas-refeicao-carnes/docs/assets/CadastrarOpcaoCarne.jpg)
+
+### 5. Cadastrar Opção de Carne
+![Cadastrar Opção de Carne](https://github.com/fajremvp/cantina-udesc-doo2/blob/feat/telas-refeicao-carnes/docs/assets/CadastrarOpcaoCarne.jpg)
+

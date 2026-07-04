@@ -30,7 +30,7 @@ public class ComentarioView extends javax.swing.JFrame {
         return this.btnEnviar;
     }
     
-    public javax.swing.JComboBox<String> jcbNota() {
+    public javax.swing.JComboBox<String> getJcbNota() {
         return this.jcbNota;
     }
 

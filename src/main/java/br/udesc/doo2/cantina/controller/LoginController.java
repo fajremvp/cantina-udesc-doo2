@@ -10,6 +10,7 @@ import br.udesc.doo2.cantina.view.administrador.HomeAdministradorView;
 import br.udesc.doo2.cantina.view.cliente.HomeClienteView;
 import br.udesc.doo2.cantina.view.CadastroView;
 import br.udesc.doo2.cantina.controller.CadastroController;
+import br.udesc.doo2.cantina.infra.Sessao;
 
 import javax.swing.JOptionPane;
 
@@ -56,6 +57,8 @@ public class LoginController {
 
         try {
             Cliente cliente = usuarioRepository.autenticarCliente(matricula, senha);
+            
+            Sessao.setUsuarioLogado(cliente);
 
             new HomeClienteView(cliente).setVisible(true);
             view.dispose();
@@ -83,6 +86,8 @@ public class LoginController {
 
         try {
             Administrador admin = usuarioRepository.autenticarAdministrador(senha);
+            
+            Sessao.setUsuarioLogado(admin);
 
             new HomeAdministradorView(admin).setVisible(true);
             view.dispose();

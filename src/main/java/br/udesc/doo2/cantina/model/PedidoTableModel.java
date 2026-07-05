@@ -1,20 +1,28 @@
-package br.udesc.doo2.cantina.view.administrador;
+package br.udesc.doo2.cantina.model;
 
 import br.udesc.doo2.cantina.model.Pedido;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
+/**
+ * Faz a ponte entre a lista de Pedido e a JTable da tela ConsultarPedidoView
+ * Cada Pedido corresponde a uma linha e cada atributo visivel a uma coluna.
+ */
 public class PedidoTableModel extends AbstractTableModel {
 
     private final List<Pedido> pedidos;
+    
+    //Nome das colunas
     private final String[] colunas = {
         "ID", "Cliente", "Tipo de Consumo",
         "Opção de Carne", "Status", "Data"
     };
+    //define formato da data
     private final DateTimeFormatter formatoData =
             DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
+    //recebe a lista
     public PedidoTableModel(List<Pedido> pedidos) {
         this.pedidos = pedidos;
     }
@@ -34,6 +42,7 @@ public class PedidoTableModel extends AbstractTableModel {
         return colunas[coluna];
     }
 
+    /** Retorna o valor que deve ser exibido em cada celula da tabela. */
     @Override
     public Object getValueAt(int linha, int coluna) {
         Pedido pedido = pedidos.get(linha);
@@ -56,6 +65,7 @@ public class PedidoTableModel extends AbstractTableModel {
         }
     }
 
+    /** Permite recuperar o objeto completo a partir da linha selecionada. */
     public Pedido getPedido(int linha) {
         return pedidos.get(linha);
     }

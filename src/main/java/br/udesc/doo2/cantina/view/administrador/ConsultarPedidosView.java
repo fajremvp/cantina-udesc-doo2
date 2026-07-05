@@ -1,9 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package br.udesc.doo2.cantina.view.administrador;
 
+import br.udesc.doo2.cantina.model.PedidoTableModel;
 import br.udesc.doo2.cantina.enums.TipoConsumo;
 import br.udesc.doo2.cantina.model.Pedido;
 import java.awt.event.ActionListener;
@@ -11,28 +9,42 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author fajre
+ * Tela do adm para listar, filtrar e confirmar a retirada de pedidos
  */
 public class ConsultarPedidosView extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ConsultarPedidosView.class.getName());
 
-    /**
-     * Creates new form ConsultarPedidosView
-     */
+
     public ConsultarPedidosView() {
         initComponents();
     }
 
+    /** Registra no botao a acao de busca definida pelo Controller. */
     public void adicionarAcaoBtnBuscar(ActionListener acao) {
         btnBuscarPedidoNomeCliente.addActionListener(acao);
     }
 
-    public String getNomeCliente() {
-        return txtBuscaNomeCliente.getText().trim();
+    /** Registra a acao responsavel por confirmar a redtirada do pedido selecionado. */
+    public void adicionarAcaoBtnConfirmarRetirada(ActionListener acao) {
+        btnConfirmaRetiradaPedido.addActionListener(acao);
     }
 
+    /** Retorna o objeto correspondente a linha selecionada na tabela. */
+    public Pedido getPedidoSelecionado() {
+        int linhaSelecionada = tableListaPedidos.getSelectedRow();//recupera o pedido selecionado da tabela
+        if (linhaSelecionada < 0 || !(tableListaPedidos.getModel() instanceof PedidoTableModel)) { //verifica se tem linha selecionada na tabela e se é um pedido de PedidoTableModel
+            return null;
+        }
+        PedidoTableModel model = (PedidoTableModel) tableListaPedidos.getModel();
+        return model.getPedido(linhaSelecionada);
+    }
+
+    public String getNomeCliente() {
+        return txtBuscaNomeCliente.getText().trim();//pega o nome do campo de busca
+    }
+
+    /** retorna o tipo de consumo escolhido no filtro */
     public TipoConsumo getTipoConsumoSelecionado() {
         String item = (String) cbboxTipoConsumoBuscaListaPedidos.getSelectedItem();
 
@@ -45,6 +57,7 @@ public class ConsultarPedidosView extends javax.swing.JFrame {
         return TipoConsumo.LOCAL;
     }
 
+    /** atualiza a JTable por meio do PedidoTableModel. */
     public void apresentarPedidos(List<Pedido> pedidos) {
         tableListaPedidos.setModel(new PedidoTableModel(pedidos));
     }

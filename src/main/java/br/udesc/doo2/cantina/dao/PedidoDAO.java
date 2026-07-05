@@ -8,26 +8,28 @@ import br.udesc.doo2.cantina.repository.PedidoRepository;
 import java.util.List;
 import javax.persistence.EntityManager;
 
+
 public class PedidoDAO implements PedidoRepository {
 
     @Override
     public void salvar(Pedido pedido) {
-        EntityManager em = Conexao.getEntityManager();
-
+        EntityManager em = Conexao.getEntityManager(); //abre conexão
+        // salva no banco
         try {
             em.getTransaction().begin();
             em.persist(pedido);
             em.getTransaction().commit();
-        } catch (RuntimeException e) {
+        } catch (RuntimeException e) { // se não der certo lança exceção e desfaz a transação do salvamento das informações
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
             throw e;
-        } finally {
+        } finally { //finaliza e fecha conexão
             em.close();
         }
     }
 
+    /** localiza o pedido e altera seu status de forma transacional. satatus: Realizado/concluido*/
     @Override
     public void atualizarStatus(int idPedido, StatusPedido novoStatus) {
         EntityManager em = Conexao.getEntityManager();
@@ -35,7 +37,7 @@ public class PedidoDAO implements PedidoRepository {
         try {
             em.getTransaction().begin();
 
-            Pedido pedido = em.find(Pedido.class, idPedido);
+            Pedido pedido = em.find(Pedido.class, idPedido); //busca pelo id do pedido
             if (pedido == null) {
                 throw new IllegalArgumentException("Pedido não encontrado.");
             }
@@ -52,17 +54,29 @@ public class PedidoDAO implements PedidoRepository {
         }
     }
 
+    /** Verifica se o cliente ja realizou um pedido para esta refeicao. */
     @Override
-    public Pedido buscarPorId(int id) {
+    public boolean existePorClienteERefeicao(int idCliente, int idRefeicao) {
         EntityManager em = Conexao.getEntityManager();
 
         try {
-            return em.find(Pedido.class, id);
+            Long quantidade = em.createQuery(
+                    "SELECT COUNT(p) FROM Pedido p "
+                    + "WHERE p.cliente.id = :idCliente "
+                    + "AND p.refeicao.id = :idRefeicao",
+                    Long.class
+            )
+            .setParameter("idCliente", idCliente)
+            .setParameter("idRefeicao", idRefeicao)
+            .getSingleResult();
+
+            return quantidade > 0;
         } finally {
             em.close();
         }
     }
 
+    /** Retorna todos os pedidos ordenados pela data de criacao. */
     @Override
     public List<Pedido> buscarTodos() {
         EntityManager em = Conexao.getEntityManager();
@@ -77,6 +91,9 @@ public class PedidoDAO implements PedidoRepository {
         }
     }
 
+    /**
+     * Busca pelo nome completo ou parcial do cliente, ignorando maiusculas.
+     */
     @Override
     public List<Pedido> buscarPorCliente(String nomeCliente) {
         EntityManager em = Conexao.getEntityManager();
@@ -96,6 +113,7 @@ public class PedidoDAO implements PedidoRepository {
     }
 
 
+    /** Filtra os pedidos pelo tipo LOCAL ou LEVAR. */
     @Override
     public List<Pedido> buscarPorTipoConsumo(TipoConsumo tipoConsumo) {
          EntityManager em = Conexao.getEntityManager();

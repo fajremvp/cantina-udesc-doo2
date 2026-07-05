@@ -1,8 +1,10 @@
 package br.udesc.doo2.cantina.view.administrador;
 
 import br.udesc.doo2.cantina.controller.OpcaoCarneController;
+import br.udesc.doo2.cantina.controller.PedidoController;
 import br.udesc.doo2.cantina.controller.RefeicaoController;
 import br.udesc.doo2.cantina.dao.OpcaoCarneDAO;
+import br.udesc.doo2.cantina.dao.PedidoDAO;
 import br.udesc.doo2.cantina.dao.RefeicaoDAO;
 import br.udesc.doo2.cantina.model.Administrador;
 import br.udesc.doo2.cantina.repository.OpcaoCarneRepository;
@@ -44,7 +46,9 @@ public class HomeAdministradorView extends javax.swing.JFrame {
     }
     
     public void acaoConsultarPedidos() {
-        
+        ConsultarPedidosView view = new ConsultarPedidosView();
+        PedidoDAO repository = new PedidoDAO();
+        new PedidoController(view, repository);
     }
     
     public void acaoGerarRelatorios() {

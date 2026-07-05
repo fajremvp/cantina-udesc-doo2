@@ -15,15 +15,20 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * Entidade que representa um pedido realizado por um cliente.
+ * Reune a refeicao, a carne escolhida, o tipo de consumo, o status
+ * atual e o momento em que o pedido foi criado.
+ */
 @Entity
 @Table(name = "pedido")
 public class Pedido implements Serializable, Comparable<Pedido> {
 
-    @Id
+    @Id //É uma chave primaria, gerada pelo banco 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "data_hora_criacao", nullable = false)
+    @Column(name = "data_hora_criacao", nullable = false) //slava da/hora do pedido, impedindo nuumeração vazia
     private LocalDateTime dataHoraCriacao;
 
     @Enumerated(EnumType.STRING)
@@ -34,21 +39,28 @@ public class Pedido implements Serializable, Comparable<Pedido> {
     @Column(nullable = false)
     private StatusPedido status;
 
+    //Relacionam o pedido com as outras informações necessárias das outras classes
     @ManyToOne
-    @JoinColumn(name = "cliente_id", nullable = false)
+    @JoinColumn(name = "cliente_id", nullable = false) // é o relacionamento, um cliente pode possuir vários pedidos
     private Cliente cliente;
 
     @ManyToOne
-    @JoinColumn(name = "refeicao_id", nullable = false)
+    @JoinColumn(name = "refeicao_id", nullable = false) // é o relacionamento, varios pedidos podem ter a mesma refeição
     private Refeicao refeicao;
 
     @ManyToOne
-    @JoinColumn(name = "opcao_carne_id", nullable = false)
+    @JoinColumn(name = "opcao_carne_id", nullable = false) // relacionamento, varios pedidos podem ter a mesma opção de carne
     private OpcaoCarne opcaoCarne;
 
+    /**
+     * Construtor vazio exigido pelo JPA/Hibernate para criar a entidade.
+     */
     protected Pedido() {
     }
 
+    /**
+     * cria um pedido novo. O identificador sera gerado pelo banco.
+     */
     public Pedido(LocalDateTime dataHoraCriacao, TipoConsumo tipoConsumo,
             StatusPedido status, Cliente cliente, Refeicao refeicao,
             OpcaoCarne opcaoCarne) {
@@ -58,13 +70,6 @@ public class Pedido implements Serializable, Comparable<Pedido> {
         this.cliente = cliente;
         this.refeicao = refeicao;
         this.opcaoCarne = opcaoCarne;
-    }
-
-    public Pedido(int id, LocalDateTime dataHoraCriacao, TipoConsumo tipoConsumo,
-            StatusPedido status, Cliente cliente, Refeicao refeicao,
-            OpcaoCarne opcaoCarne) {
-        this(dataHoraCriacao, tipoConsumo, status, cliente, refeicao, opcaoCarne);
-        this.id = id;
     }
 
     @Override
@@ -122,6 +127,10 @@ public class Pedido implements Serializable, Comparable<Pedido> {
         this.opcaoCarne = opcaoCarne;
     }
 
+    /**
+     * Define a ordenacao natural dos pedidos pela data e hora de criacao.
+     * E utilizado na consulta administrativa com Collections.sort().
+     */
     @Override
     public int compareTo(Pedido outro) {
         return this.dataHoraCriacao.compareTo(outro.dataHoraCriacao);

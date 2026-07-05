@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package br.udesc.doo2.cantina.view.cliente;
 
 import br.udesc.doo2.cantina.enums.TipoConsumo;
@@ -12,25 +9,26 @@ import java.util.Comparator;
 import java.util.Set;
 import javax.swing.JOptionPane;
 
+
 /**
- *
- * @author fajre
+ * Tela utilizada pelo cliente para escolher carne e tipo de consumo.
  */
 public class PedidoView extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PedidoView.class.getName());
 
-    /**
-     * Creates new form TelaPedidoView
-     */
     public PedidoView() {
         initComponents();
     }
 
+    /** Permite ao Controller registrar a acao do botao Finalizar. */
     public void adicionarAcaoBtnFinalizar(ActionListener acao) {
         btnFinalizarPedido.addActionListener(acao);
     }
 
+    /**
+     * Substitui os textos genericos pelos nomes das carnes da refeicao do dia.
+     */
     public void iniciarOpcoesCarne(Set<OpcaoCarne> carnes) {
         ArrayList<OpcaoCarne> opcoes = new ArrayList<>(carnes);
         opcoes.sort(Comparator.comparing(OpcaoCarne::getNome));
@@ -46,6 +44,7 @@ public class PedidoView extends javax.swing.JFrame {
         }
     }
 
+    /** Retorna o nome da carne marcada ou null quando nada foi escolhido. */
     public String getOpcaoCarneSelecionada() {
         if (rbtnCarne1Pedido.isSelected()) {
             return rbtnCarne1Pedido.getText();
@@ -56,6 +55,7 @@ public class PedidoView extends javax.swing.JFrame {
         return null;
     }
 
+    /** Retorna LOCAL/LEVAR ou null quando nada foi escolhido. */
     public TipoConsumo getTipoConsumoSelecionado() {
         if (rbtnOpcaoConsumoLevar.isSelected()) {
             return TipoConsumo.LEVAR;

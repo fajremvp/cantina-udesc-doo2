@@ -29,8 +29,7 @@ public class Comentario implements Serializable {
     protected Comentario() {
     }
 
-    public Comentario(int id, LocalDate data, String descricao, int nota, Cliente cliente) {
-        this.id = id;
+    public Comentario(LocalDate data, String descricao, int nota, Cliente cliente) {
         this.data = data;
         this.descricao = descricao;
         this.nota = nota;

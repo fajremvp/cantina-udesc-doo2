@@ -6,6 +6,7 @@ package br.udesc.doo2.cantina.view.cliente;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,6 +21,7 @@ public class ComentarioView extends javax.swing.JFrame {
      */
     public ComentarioView() {
         initComponents();
+        setVisible(true);
     }
     
     public javax.swing.JTextArea getTxtComentario() {
@@ -32,6 +34,10 @@ public class ComentarioView extends javax.swing.JFrame {
     
     public javax.swing.JComboBox<String> getJcbNota() {
         return this.jcbNota;
+    }
+    
+    public void apresentarMensagem(String mensagem) {
+        JOptionPane.showMessageDialog(this, mensagem);
     }
 
     /**

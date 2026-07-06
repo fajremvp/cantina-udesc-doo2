@@ -312,7 +312,9 @@ end
 
 <details>
 <summary>Ver código fonte (PlantUML)</summary>
+
 ```plantuml
+    
 @startuml
 title Realização de Pedido
 

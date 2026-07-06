@@ -307,3 +307,70 @@ end
 ```
 </details>
 
+### 6. Realizar Pedidos
+![Diagrama de sequência da consulta de pedidos](assets/diagrama-realizarpedido.png)
+
+<details>
+<summary>Ver código fonte (PlantUML)</summary>
+```plantuml
+@startuml
+title Realização de Pedido
+
+actor Cliente
+participant HomeClienteView as Home
+participant RefeicaoDAO as RefeicaoDAO
+participant PedidoView as View
+participant PedidoController as Controller
+participant PedidoDAO as DAO
+database Banco
+
+Cliente -> Home: Clicar em "Fazer Pedido"
+Home -> RefeicaoDAO: buscarPorData(dataAtual)
+RefeicaoDAO -> Banco: Buscar refeição e carnes do dia
+Banco --> RefeicaoDAO: Refeição
+RefeicaoDAO --> Home: refeicaoDoDia
+
+Home -> Controller: new PedidoController(\nView, DAO, cliente, refeicao)
+Controller -> View: iniciarOpcoesCarne(refeicao.getCarnes())
+Controller -> View: apresentarTela()
+
+Cliente -> View: Selecionar carne e tipo de consumo
+Cliente -> View: Clicar em "Finalizar Pedido"
+View -> Controller: finalizarPedido()
+
+Controller -> View: getOpcaoCarneSelecionada()
+View --> Controller: nomeCarne
+
+alt Carne não selecionada
+    Controller -> View: apresentarMensagem(\n"Preencha a opção de carne")
+else Carne selecionada
+    Controller -> View: getTipoConsumoSelecionado()
+    View --> Controller: tipoConsumo
+
+    alt Tipo de consumo não selecionado
+        Controller -> View: apresentarMensagem(\n"Preencha a opção de consumo")
+    else Tipo selecionado
+        Controller -> DAO: existePorClienteERefeicao(\nclienteId, refeicaoId)
+        DAO -> Banco: SELECT COUNT(pedido)
+        Banco --> DAO: quantidade
+        DAO --> Controller: existe
+
+        alt Cliente já realizou pedido
+            Controller -> View: apresentarMensagem(\n"Cliente já realizou um pedido")
+        else Pedido permitido
+            Controller -> Controller: buscarCarneSelecionada(nomeCarne)
+            Controller -> Controller: new Pedido(...)
+            Controller -> DAO: salvar(pedido)
+            DAO -> Banco: INSERT pedido
+            Banco --> DAO: Pedido salvo
+            DAO --> Controller: sucesso
+            Controller -> View: apresentarMensagem(\n"Pedido realizado...")
+            Controller -> View: limparSelecoes()
+        end
+    end
+end
+
+@enduml
+
+```
+</details>

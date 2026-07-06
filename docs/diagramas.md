@@ -231,3 +231,79 @@ deactivate View
 ### 5. Cadastrar Opção de Carne
 ![Cadastrar Opção de Carne](https://github.com/fajremvp/cantina-udesc-doo2/blob/feat/telas-refeicao-carnes/docs/assets/CadastrarOpcaoCarne.jpg)
 
+## Issue # - 
+**Autor:** Maria Zortea - @maria-zortea
+
+### 6. Consultar Pedidos
+![Diagrama de sequência da consulta de pedidos](assets/diagrama-consultarpedido.png)
+
+<details>
+<summary>Ver código fonte (PlantUML)</summary>
+
+```plantuml
+@startuml
+title Consulta de Pedidos
+
+actor Administrador as Admin
+participant HomeAdministradorView as Home
+participant ConsultarPedidosView as View
+participant PedidoController as Controller
+participant PedidoDAO as DAO
+participant PedidoTableModel as TableModel
+database Banco
+
+Admin -> Home: Clicar em "Consultar Pedidos"
+Home -> View: new ConsultarPedidosView()
+Home -> DAO: new PedidoDAO()
+Home -> Controller: new PedidoController(View, DAO)
+
+Controller -> DAO: buscarTodos()
+DAO -> Banco: SELECT pedidos
+Banco --> DAO: Lista de pedidos
+DAO --> Controller: pedidos
+
+Controller -> Controller: Collections.sort(pedidos)
+Controller -> View: apresentarPedidos(pedidos)
+
+== Busca com filtros ==
+
+Admin -> View: Preencher nome ou tipo de consumo
+Admin -> View: Clicar em "Realizar Busca"
+View -> Controller: Evento do botão
+Controller -> Controller: buscarPedidos()
+
+Controller -> View: getNomeCliente()
+View --> Controller: nomeCliente
+
+Controller -> View: getTipoConsumoSelecionado()
+View --> Controller: tipoConsumo
+
+alt Nenhum filtro preenchido
+    Controller -> Controller: throw new PedidoException()
+    Controller -> View: apresentarMensagem(\n"preencha algum dos filtros para realizar a busca")
+
+else Nome preenchido
+    Controller -> DAO: buscarPorCliente(nomeCliente)
+    DAO -> Banco: SELECT pedidos por nome
+    Banco --> DAO: pedidos
+    DAO --> Controller: pedidos
+
+    Controller -> Controller: Collections.sort(pedidos)
+    Controller -> View: apresentarPedidos(pedidos)
+    View -> TableModel: new PedidoTableModel(pedidos)
+
+else Tipo de consumo preenchido
+    Controller -> DAO: buscarPorTipoConsumo(tipoConsumo)
+    DAO -> Banco: SELECT pedidos por tipo
+    Banco --> DAO: pedidos
+    DAO --> Controller: pedidos
+
+    Controller -> Controller: Collections.sort(pedidos)
+    Controller -> View: apresentarPedidos(pedidos)
+    View -> TableModel: new PedidoTableModel(pedidos)
+end
+
+@enduml
+```
+</details>
+

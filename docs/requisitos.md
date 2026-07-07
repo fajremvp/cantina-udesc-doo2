@@ -65,16 +65,14 @@ Este documento reúne os Requisitos Funcionais (RF), as Regras de Negócio (RN) 
 | RN03 | O Administrador não possui o atributo Matrícula; portanto as telas de cadastro/alteração devem ocultar ou desabilitar esse campo quando o usuário logado for Administrador (decisão tomada via polimorfismo/`instanceof`). |
 | RN04 | Nome é um campo obrigatório para qualquer Usuario (Cliente ou Administrador); Matrícula é obrigatória apenas para Cliente. |
 | RN05 | Não é permitido cadastrar uma Matrícula já existente no banco — deve ser validada a duplicidade antes de persistir um novo Cliente, lançando `UsuarioException`. |
-| RN06 | A senha nunca é manipulada como texto puro além do necessário: é capturada como `char[]` da `JPasswordField`, convertida para hash SHA-256 (`SenhaUtils`) antes de ser persistida ou comparada, e o array em memória é zerado (`Arrays.fill`) após o uso. |
-| RN07 | A Capacidade Máxima de uma Refeição deve ser maior que zero. |
-| RN08 | As duas Opções de Carne associadas a uma mesma Refeição não podem ter nomes duplicados. |
-| RN09 | Um Pedido está sempre associado a exatamente um Cliente, uma Refeição e uma Opção de Carne (nunca uma lista de carnes). |
-| RN10 | Um pedido novo é sempre criado com status REALIZADO; a alteração de status para CONCLUIDO só ocorre via confirmação explícita de retirada pelo Administrador. |
-| RN11 | Um pedido com status CANCELADO não deve poder ser alterado para CONCLUIDO. |
-| RN12 | A nota de um comentário deve estar estritamente entre 1 e 5; valores fora desse intervalo devem ser rejeitados com `ComentarioException`, sem persistir o registro. |
-| RN13 | Ordenação padrão de Pedidos na consulta administrativa: por data/hora de criação (mais antigos primeiro), podendo ser refinada por Tipo de Consumo como critério primário e data como critério de desempate. |
-| RN14 | Ordenação padrão de Comentários: por data, mais recentes primeiro. |
-| RN15 | Falhas de persistência (erros inesperados do EntityManager) devem ser encapsuladas em exceções de negócio (`UsuarioException`, `PedidoException`, `RefeicaoException`, `DatabaseException`) e exibidas ao usuário de forma amigável, sem que a aplicação trave ou feche abruptamente. |
+| RN06 | A Capacidade Máxima de uma Refeição deve ser maior que zero. |
+| RN07 | As duas Opções de Carne associadas a uma mesma Refeição não podem ter nomes duplicados. |
+| RN08 | Um Pedido está sempre associado a exatamente um Cliente, uma Refeição e uma Opção de Carne (nunca uma lista de carnes). |
+| RN09 | Um pedido novo é sempre criado com status REALIZADO; a alteração de status para CONCLUIDO só ocorre via confirmação explícita de retirada pelo Administrador. |
+| RN10 | Um pedido com status CANCELADO não deve poder ser alterado para CONCLUIDO. |
+| RN11 | A nota de um comentário deve estar estritamente entre 1 e 5; valores fora desse intervalo devem ser rejeitados com `ComentarioException`, sem persistir o registro. |
+| RN12 | Ordenação padrão de Pedidos na consulta administrativa: por data/hora de criação (mais antigos primeiro), podendo ser refinada por Tipo de Consumo como critério primário e data como critério de desempate. |
+| RN13 | Ordenação padrão de Comentários: por data, mais recentes primeiro. |
 
 ---
 

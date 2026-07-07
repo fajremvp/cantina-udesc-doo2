@@ -26,7 +26,7 @@ Representa qualquer membro da comunidade acadêmica que consome as refeições d
 
 Representa a equipe operacional da cantina, responsável por planejar o cardápio e controlar o atendimento.
 
-**Identificação:** Apenas Senha (não possui matrícula, pois é pré-cadastrado diretamente no banco via `database/seed.sql` — não existe tela de autocadastro de Administrador).
+**Identificação:** Apenas Senha (perfil pré-cadastrado internamente no sistema, sem fluxo de autocadastro).
 
 **O que pode fazer no sistema:**
 - Autenticar-se (login) usando apenas Senha.
@@ -59,12 +59,12 @@ Esse processo substitui o "Google Forms enviado tardiamente": o cardápio agora 
 Durante a janela de pedidos, o Cliente acessa o sistema:
 
 1. Faz login com Matrícula e Senha (ou se cadastra, caso seja seu primeiro acesso).
-2. Na `HomeClienteView`, o sistema busca automaticamente a `Refeicao` do dia atual (`RefeicaoRepository.buscarPorData`) e exibe descrição e preço. Caso nenhuma refeição tenha sido cadastrada para o dia, o botão de pedido é desabilitado.
+2. Ao acessar a tela inicial, o sistema carrega e exibe automaticamente a descrição e o preço da refeição configurada para o dia atual. Caso nenhuma refeição tenha sido cadastrada para o dia, o botão de pedido é desabilitado.
 3. Escolhe uma opção de carne dentre as cadastradas para aquela refeição e define o tipo de consumo (`LOCAL` ou `LEVAR`).
 4. Finaliza o pedido. O sistema valida:
    - Se uma opção de carne foi selecionada;
    - Se um tipo de consumo foi selecionado;
-   - Se o cliente **já não fez outro pedido** para a mesma refeição (`existePorClienteERefeicao`), evitando duplicidade.
+   - Se o cliente **ainda não realizou nenhum pedido** para a refeição do dia, evitando reservas duplicadas.
 5. O pedido é salvo com status inicial `StatusPedido.REALIZADO` e data/hora de criação.
 
 Esse processo substitui a coleta dispersa por WhatsApp: a reserva passa a ser individual, validada e centralizada no banco.
@@ -91,7 +91,7 @@ Após consumir a refeição, o Cliente pode registrar feedback:
 Com o histórico acumulado, o Administrador utiliza o sistema para decisões de gestão:
 
 1. Consulta os comentários enviados pelos clientes, ordenados por data (mais recentes primeiro).
-2. Gera relatórios agregados: quantidade de clientes únicos que pediram (usando `Set`) e volume de pedidos agrupado por tipo de consumo/carne (usando `Map`), apoiando decisões como ajuste de quantidade de carne comprada ou horários de maior demanda.
+2. Gera relatórios analíticos: quantidade de clientes únicos atendidos e volume de pedidos agrupado por tipo de consumo e opção de carne escolhida, apoiando a gestão de estoque e compras.
 
 ---
 

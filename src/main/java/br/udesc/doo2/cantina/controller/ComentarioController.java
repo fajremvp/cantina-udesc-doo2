@@ -8,7 +8,9 @@ import br.udesc.doo2.cantina.repository.ComentarioRepository;
 import br.udesc.doo2.cantina.view.administrador.ConsultarComentariosView;
 import br.udesc.doo2.cantina.view.cliente.ComentarioView;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 public class ComentarioController {
     
@@ -30,7 +32,7 @@ public class ComentarioController {
         this.consultaView = view;
         this.comentarioRepository = repository;
         
-        
+        this.imprimeComentarios();
     }
     
     private void setComportamentos() {
@@ -65,6 +67,26 @@ public class ComentarioController {
     
     private int getNota() throws ComentarioException {
         return Integer.parseInt(view.getJcbNota().getSelectedItem().toString());
+    }
+    
+    private void imprimeComentarios() {
+        List<Comentario> comentarios = comentarioRepository.buscarTodos();
+        
+        DefaultTableModel model =
+                (DefaultTableModel) consultaView.getTblComentarios().getModel();
+
+        model.setRowCount(0);
+
+        for (Comentario comentario : comentarios) {
+
+            model.addRow(new Object[]{
+                comentario.getData(),
+                comentario.getCliente().getNome(),
+                comentario.getNota(),
+                comentario.getDescricao()
+            });
+
+        }
     }
     
 }

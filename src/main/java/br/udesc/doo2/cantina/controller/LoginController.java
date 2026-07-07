@@ -10,6 +10,7 @@ import br.udesc.doo2.cantina.view.administrador.HomeAdministradorView;
 import br.udesc.doo2.cantina.view.cliente.HomeClienteView;
 import br.udesc.doo2.cantina.view.CadastroView;
 import br.udesc.doo2.cantina.controller.CadastroController;
+import br.udesc.doo2.cantina.infra.Sessao;
 
 import javax.swing.JOptionPane;
 

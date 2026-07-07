@@ -226,16 +226,16 @@ deactivate View
 **Autor:** Gustavo Hoffmann - @GustavoHoffmann3
 
 ### 4. Cadastrar Refeição
-![Cadastrar Refeição](https://github.com/fajremvp/cantina-udesc-doo2/blob/feat/telas-refeicao-carnes/docs/assets/CadastrarOpcaoCarne.jpg)
+![Cadastrar Refeição](https://github.com/fajremvp/cantina-udesc-doo2/blob/main/docs/assets/CadastrarRefeicao.jpg?raw=true)
 
 ### 5. Cadastrar Opção de Carne
-![Cadastrar Opção de Carne](https://github.com/fajremvp/cantina-udesc-doo2/blob/feat/telas-refeicao-carnes/docs/assets/CadastrarOpcaoCarne.jpg)
+![Cadastrar Opção de Carne](https://github.com/fajremvp/cantina-udesc-doo2/blob/main/docs/assets/CadastrarOpcaoCarne.jpg?raw=true)
 
-## Issue # - 
+## Issue #23 - Point of Sale - Place an Order (Customer)
 **Autor:** Maria Zortea - @maria-zortea
 
-### 6. Consultar Pedidos
-![Diagrama de sequência da consulta de pedidos](assets/diagrama-consultarpedido.png)
+### 6. Realizar Pedido
+![Realizar Pedido](https://github.com/fajremvp/cantina-udesc-doo2/blob/main/docs/assets/assets/RealizarPedido.png?raw=true)
 
 <details>
 <summary>Ver código fonte (PlantUML)</summary>
@@ -307,14 +307,16 @@ end
 ```
 </details>
 
-### 6. Realizar Pedidos
-![Diagrama de sequência da consulta de pedidos](assets/diagrama-realizarpedido.png)
+## Issue #24 - Kitchen Dashboard (Admin)
+**Autor:** Maria Zortea - @maria-zortea
+
+### 7. Consultar Pedidos
+![Consultar Pedidos](https://github.com/fajremvp/cantina-udesc-doo2/blob/main/docs/assets/ConsultarPedidos.png?raw=true)
 
 <details>
 <summary>Ver código fonte (PlantUML)</summary>
 
 ```plantuml
-    
 @startuml
 title Realização de Pedido
 
@@ -373,6 +375,5 @@ else Carne selecionada
 end
 
 @enduml
-
 ```
 </details>

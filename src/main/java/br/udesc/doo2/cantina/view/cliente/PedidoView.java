@@ -1,22 +1,83 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package br.udesc.doo2.cantina.view.cliente;
 
+import br.udesc.doo2.cantina.enums.TipoConsumo;
+import br.udesc.doo2.cantina.model.OpcaoCarne;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Set;
+import javax.swing.JOptionPane;
+
+
 /**
- *
- * @author fajre
+ * Tela utilizada pelo cliente para escolher carne e tipo de consumo.
  */
 public class PedidoView extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PedidoView.class.getName());
 
-    /**
-     * Creates new form TelaPedidoView
-     */
     public PedidoView() {
         initComponents();
+    }
+
+    /** Permite ao Controller registrar a acao do botao Finalizar. */
+    public void adicionarAcaoBtnFinalizar(ActionListener acao) {
+        btnFinalizarPedido.addActionListener(acao);
+    }
+
+    /**
+     * Substitui os textos genericos pelos nomes das carnes da refeicao do dia.
+     */
+    public void iniciarOpcoesCarne(Set<OpcaoCarne> carnes) {
+        ArrayList<OpcaoCarne> opcoes = new ArrayList<>(carnes);
+        opcoes.sort(Comparator.comparing(OpcaoCarne::getNome));
+
+        rbtnCarne1Pedido.setVisible(opcoes.size() > 0);
+        rbtnCarne2Pedido.setVisible(opcoes.size() > 1);
+
+        if (opcoes.size() > 0) {
+            rbtnCarne1Pedido.setText(opcoes.get(0).getNome());
+        }
+        if (opcoes.size() > 1) {
+            rbtnCarne2Pedido.setText(opcoes.get(1).getNome());
+        }
+    }
+
+    /** Retorna o nome da carne marcada ou null quando nada foi escolhido. */
+    public String getOpcaoCarneSelecionada() {
+        if (rbtnCarne1Pedido.isSelected()) {
+            return rbtnCarne1Pedido.getText();
+        }
+        if (rbtnCarne2Pedido.isSelected()) {
+            return rbtnCarne2Pedido.getText();
+        }
+        return null;
+    }
+
+    /** Retorna LOCAL/LEVAR ou null quando nada foi escolhido. */
+    public TipoConsumo getTipoConsumoSelecionado() {
+        if (rbtnOpcaoConsumoLevar.isSelected()) {
+            return TipoConsumo.LEVAR;
+        }
+        if (rbtnOpcaoConsumoLocal.isSelected()) {
+            return TipoConsumo.LOCAL;
+        }
+        return null;
+    }
+
+    public void apresentarMensagem(String mensagem) {
+        JOptionPane.showMessageDialog(this, mensagem);
+    }
+
+    public void limparSelecoes() {
+        btngroupOpcaoCarne.clearSelection();
+        btngroupOpcaoConsumo.clearSelection();
+    }
+
+    public void apresentarTela() {
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     /**
@@ -28,17 +89,84 @@ public class PedidoView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btngroupOpcaoCarne = new javax.swing.ButtonGroup();
+        btngroupOpcaoConsumo = new javax.swing.ButtonGroup();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        rbtnCarne1Pedido = new javax.swing.JRadioButton();
+        rbtnCarne2Pedido = new javax.swing.JRadioButton();
+        rbtnOpcaoConsumoLevar = new javax.swing.JRadioButton();
+        rbtnOpcaoConsumoLocal = new javax.swing.JRadioButton();
+        btnFinalizarPedido = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setText("Pedido");
+
+        jLabel2.setText("Opção de Carne:");
+
+        jLabel3.setText("Opção de Consumo:");
+
+        btngroupOpcaoCarne.add(rbtnCarne1Pedido);
+        rbtnCarne1Pedido.setText("Carne 1");
+
+        btngroupOpcaoCarne.add(rbtnCarne2Pedido);
+        rbtnCarne2Pedido.setText("Carne 2");
+
+        btngroupOpcaoConsumo.add(rbtnOpcaoConsumoLevar);
+        rbtnOpcaoConsumoLevar.setText("Levar");
+
+        btngroupOpcaoConsumo.add(rbtnOpcaoConsumoLocal);
+        rbtnOpcaoConsumoLocal.setText("Local");
+
+        btnFinalizarPedido.setText("Finalizar Pedido");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnFinalizarPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rbtnOpcaoConsumoLevar)
+                            .addComponent(jLabel2)
+                            .addComponent(rbtnCarne1Pedido)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rbtnCarne2Pedido)
+                            .addComponent(rbtnOpcaoConsumoLocal))))
+                .addGap(103, 103, 103))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel1)
+                .addGap(33, 33, 33)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbtnCarne1Pedido)
+                    .addComponent(rbtnCarne2Pedido))
+                .addGap(33, 33, 33)
+                .addComponent(jLabel3)
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbtnOpcaoConsumoLevar)
+                    .addComponent(rbtnOpcaoConsumoLocal))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addComponent(btnFinalizarPedido)
+                .addGap(18, 18, 18))
         );
 
         pack();
@@ -51,7 +179,7 @@ public class PedidoView extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -70,5 +198,15 @@ public class PedidoView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFinalizarPedido;
+    private javax.swing.ButtonGroup btngroupOpcaoCarne;
+    private javax.swing.ButtonGroup btngroupOpcaoConsumo;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JRadioButton rbtnCarne1Pedido;
+    private javax.swing.JRadioButton rbtnCarne2Pedido;
+    private javax.swing.JRadioButton rbtnOpcaoConsumoLevar;
+    private javax.swing.JRadioButton rbtnOpcaoConsumoLocal;
     // End of variables declaration//GEN-END:variables
 }

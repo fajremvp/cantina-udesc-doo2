@@ -76,7 +76,7 @@ public class RefeicaoDAO implements RefeicaoRepository {
         try {
 
             return em.createQuery(
-                    "FROM Refeicao r WHERE r.data = :data",
+                    "SELECT DISTINCT r FROM Refeicao r LEFT JOIN FETCH r.carnes WHERE r.data = :data",
                     Refeicao.class
             )
             .setParameter("data", data)

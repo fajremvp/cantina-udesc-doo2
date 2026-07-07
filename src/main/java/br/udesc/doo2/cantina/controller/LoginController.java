@@ -57,8 +57,6 @@ public class LoginController {
 
         try {
             Cliente cliente = usuarioRepository.autenticarCliente(matricula, senha);
-            
-            Sessao.setUsuarioLogado(cliente);
 
             new HomeClienteView(cliente).setVisible(true);
             view.dispose();
@@ -86,8 +84,6 @@ public class LoginController {
 
         try {
             Administrador admin = usuarioRepository.autenticarAdministrador(senha);
-            
-            Sessao.setUsuarioLogado(admin);
 
             new HomeAdministradorView(admin).setVisible(true);
             view.dispose();

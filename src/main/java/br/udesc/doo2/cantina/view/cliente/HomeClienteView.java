@@ -1,6 +1,13 @@
 package br.udesc.doo2.cantina.view.cliente;
 
+import br.udesc.doo2.cantina.controller.PedidoController;
+import br.udesc.doo2.cantina.dao.PedidoDAO;
+import br.udesc.doo2.cantina.dao.RefeicaoDAO;
 import br.udesc.doo2.cantina.model.Cliente;
+import br.udesc.doo2.cantina.model.Refeicao;
+import java.time.LocalDate;
+import javax.persistence.NoResultException;
+import javax.swing.JOptionPane;
 
 public class HomeClienteView extends javax.swing.JFrame {
     
@@ -10,12 +17,53 @@ public class HomeClienteView extends javax.swing.JFrame {
     // funcionalidades (Pedido, Comentário, Alterar Cadastro) para saber
     // "quem" está operando, sem precisar logar de novo.
     private final Cliente clienteLogado;
+    private Refeicao refeicaoDoDia;
 
     public HomeClienteView(Cliente clienteLogado) {
         this.clienteLogado = clienteLogado;
         initComponents();
+        txtRefeiçãodoDiaHomeCliente.setEditable(false);
+        btnFazerPedidoHomeCliente.addActionListener(e -> abrirTelaPedido());
+        carregarRefeicaoDoDia();
     }
     
+    private void carregarRefeicaoDoDia() {
+        try {
+            refeicaoDoDia = new RefeicaoDAO().buscarPorData(LocalDate.now());
+            txtRefeiçãodoDiaHomeCliente.setText(
+                    refeicaoDoDia.getDescricao()
+                    + " | R$ " + String.format("%.2f", refeicaoDoDia.getPreco())
+            );
+            btnFazerPedidoHomeCliente.setEnabled(true);
+        } catch (NoResultException e) {
+            txtRefeiçãodoDiaHomeCliente.setText(
+                    "Nenhuma refeicao cadastrada para hoje."
+            );
+            btnFazerPedidoHomeCliente.setEnabled(false);
+        } catch (RuntimeException e) {
+            txtRefeiçãodoDiaHomeCliente.setText(
+                    "Nao foi possivel carregar a refeicao do dia."
+            );
+            btnFazerPedidoHomeCliente.setEnabled(false);
+        }
+    }
+
+    private void abrirTelaPedido() {
+        if (refeicaoDoDia == null) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Nenhuma refeicao cadastrada para hoje."
+            );
+            return;
+        }
+
+        new PedidoController(
+                new PedidoView(),
+                new PedidoDAO(),
+                clienteLogado,
+                refeicaoDoDia
+        );
+    }
     public Cliente getClienteLogado() {
         return clienteLogado;
     }
@@ -29,17 +77,39 @@ public class HomeClienteView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        txtRefeiçãodoDiaHomeCliente = new javax.swing.JTextField();
+        btnFazerPedidoHomeCliente = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setText("Refeição do dia:");
+
+        btnFazerPedidoHomeCliente.setText("Fazer Pedido");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnFazerPedidoHomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtRefeiçãodoDiaHomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(jLabel1)
+                .addGap(34, 34, 34)
+                .addComponent(txtRefeiçãodoDiaHomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(btnFazerPedidoHomeCliente)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
@@ -73,5 +143,8 @@ public class HomeClienteView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFazerPedidoHomeCliente;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTextField txtRefeiçãodoDiaHomeCliente;
     // End of variables declaration//GEN-END:variables
 }

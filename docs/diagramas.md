@@ -226,8 +226,154 @@ deactivate View
 **Autor:** Gustavo Hoffmann - @GustavoHoffmann3
 
 ### 4. Cadastrar Refeição
-![Cadastrar Refeição](https://github.com/fajremvp/cantina-udesc-doo2/blob/feat/telas-refeicao-carnes/docs/assets/CadastrarOpcaoCarne.jpg)
+![Cadastrar Refeição](https://github.com/fajremvp/cantina-udesc-doo2/blob/main/docs/assets/CadastrarRefeicao.jpg?raw=true)
 
 ### 5. Cadastrar Opção de Carne
-![Cadastrar Opção de Carne](https://github.com/fajremvp/cantina-udesc-doo2/blob/feat/telas-refeicao-carnes/docs/assets/CadastrarOpcaoCarne.jpg)
+![Cadastrar Opção de Carne](https://github.com/fajremvp/cantina-udesc-doo2/blob/main/docs/assets/CadastrarOpcaoCarne.jpg?raw=true)
 
+## Issue #23 - Point of Sale - Place an Order (Customer)
+**Autor:** Maria Zortea - @maria-zortea
+
+### 6. Realizar Pedido
+![Realizar Pedido](https://github.com/fajremvp/cantina-udesc-doo2/blob/main/docs/assets/assets/RealizarPedido.png?raw=true)
+
+<details>
+<summary>Ver código fonte (PlantUML)</summary>
+
+```plantuml
+@startuml
+title Consulta de Pedidos
+
+actor Administrador as Admin
+participant HomeAdministradorView as Home
+participant ConsultarPedidosView as View
+participant PedidoController as Controller
+participant PedidoDAO as DAO
+participant PedidoTableModel as TableModel
+database Banco
+
+Admin -> Home: Clicar em "Consultar Pedidos"
+Home -> View: new ConsultarPedidosView()
+Home -> DAO: new PedidoDAO()
+Home -> Controller: new PedidoController(View, DAO)
+
+Controller -> DAO: buscarTodos()
+DAO -> Banco: SELECT pedidos
+Banco --> DAO: Lista de pedidos
+DAO --> Controller: pedidos
+
+Controller -> Controller: Collections.sort(pedidos)
+Controller -> View: apresentarPedidos(pedidos)
+
+== Busca com filtros ==
+
+Admin -> View: Preencher nome ou tipo de consumo
+Admin -> View: Clicar em "Realizar Busca"
+View -> Controller: Evento do botão
+Controller -> Controller: buscarPedidos()
+
+Controller -> View: getNomeCliente()
+View --> Controller: nomeCliente
+
+Controller -> View: getTipoConsumoSelecionado()
+View --> Controller: tipoConsumo
+
+alt Nenhum filtro preenchido
+    Controller -> Controller: throw new PedidoException()
+    Controller -> View: apresentarMensagem(\n"preencha algum dos filtros para realizar a busca")
+
+else Nome preenchido
+    Controller -> DAO: buscarPorCliente(nomeCliente)
+    DAO -> Banco: SELECT pedidos por nome
+    Banco --> DAO: pedidos
+    DAO --> Controller: pedidos
+
+    Controller -> Controller: Collections.sort(pedidos)
+    Controller -> View: apresentarPedidos(pedidos)
+    View -> TableModel: new PedidoTableModel(pedidos)
+
+else Tipo de consumo preenchido
+    Controller -> DAO: buscarPorTipoConsumo(tipoConsumo)
+    DAO -> Banco: SELECT pedidos por tipo
+    Banco --> DAO: pedidos
+    DAO --> Controller: pedidos
+
+    Controller -> Controller: Collections.sort(pedidos)
+    Controller -> View: apresentarPedidos(pedidos)
+    View -> TableModel: new PedidoTableModel(pedidos)
+end
+
+@enduml
+```
+</details>
+
+## Issue #24 - Kitchen Dashboard (Admin)
+**Autor:** Maria Zortea - @maria-zortea
+
+### 7. Consultar Pedidos
+![Consultar Pedidos](https://github.com/fajremvp/cantina-udesc-doo2/blob/main/docs/assets/ConsultarPedidos.png?raw=true)
+
+<details>
+<summary>Ver código fonte (PlantUML)</summary>
+
+```plantuml
+@startuml
+title Realização de Pedido
+
+actor Cliente
+participant HomeClienteView as Home
+participant RefeicaoDAO as RefeicaoDAO
+participant PedidoView as View
+participant PedidoController as Controller
+participant PedidoDAO as DAO
+database Banco
+
+Cliente -> Home: Clicar em "Fazer Pedido"
+Home -> RefeicaoDAO: buscarPorData(dataAtual)
+RefeicaoDAO -> Banco: Buscar refeição e carnes do dia
+Banco --> RefeicaoDAO: Refeição
+RefeicaoDAO --> Home: refeicaoDoDia
+
+Home -> Controller: new PedidoController(\nView, DAO, cliente, refeicao)
+Controller -> View: iniciarOpcoesCarne(refeicao.getCarnes())
+Controller -> View: apresentarTela()
+
+Cliente -> View: Selecionar carne e tipo de consumo
+Cliente -> View: Clicar em "Finalizar Pedido"
+View -> Controller: finalizarPedido()
+
+Controller -> View: getOpcaoCarneSelecionada()
+View --> Controller: nomeCarne
+
+alt Carne não selecionada
+    Controller -> View: apresentarMensagem(\n"Preencha a opção de carne")
+else Carne selecionada
+    Controller -> View: getTipoConsumoSelecionado()
+    View --> Controller: tipoConsumo
+
+    alt Tipo de consumo não selecionado
+        Controller -> View: apresentarMensagem(\n"Preencha a opção de consumo")
+    else Tipo selecionado
+        Controller -> DAO: existePorClienteERefeicao(\nclienteId, refeicaoId)
+        DAO -> Banco: SELECT COUNT(pedido)
+        Banco --> DAO: quantidade
+        DAO --> Controller: existe
+
+        alt Cliente já realizou pedido
+            Controller -> View: apresentarMensagem(\n"Cliente já realizou um pedido")
+        else Pedido permitido
+            Controller -> Controller: buscarCarneSelecionada(nomeCarne)
+            Controller -> Controller: new Pedido(...)
+            Controller -> DAO: salvar(pedido)
+            DAO -> Banco: INSERT pedido
+            Banco --> DAO: Pedido salvo
+            DAO --> Controller: sucesso
+            Controller -> View: apresentarMensagem(\n"Pedido realizado...")
+            Controller -> View: limparSelecoes()
+        end
+    end
+end
+
+@enduml
+```
+</details>

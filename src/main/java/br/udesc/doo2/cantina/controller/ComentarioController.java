@@ -30,7 +30,7 @@ public class ComentarioController {
         this.consultaView = view;
         this.comentarioRepository = repository;
         
-        this.imprimeComentarios();
+        
     }
     
     private void setComportamentos() {
@@ -45,15 +45,18 @@ public class ComentarioController {
             model = new Comentario(LocalDate.now(), comentario, nota, cliente);
             
             comentarioRepository.salvar(model);
+            
+            view.apresentarMensagem("Comentário enviado com sucesso!");
+            
+            this.limparCampos();
         } catch(ComentarioException ex) {
             view.apresentarMensagem("Entrada inválida");
         }
     }
     
-    private void imprimeComentarios() {
-        List<Comentario> comentarios = comentarioRepository.buscarTodos();
-        
-        
+    private void limparCampos() {
+        view.getTxtComentario().setText("");
+        view.getJcbNota().setSelectedIndex(0);
     }
     
     private String getComentario() {

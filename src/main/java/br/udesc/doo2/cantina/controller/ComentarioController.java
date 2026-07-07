@@ -15,9 +15,9 @@ public class ComentarioController {
     private Comentario model;
     private Cliente cliente;
     
-    public ComentarioController(ComentarioView view, Cliente cliente) {
+    public ComentarioController(ComentarioView view, ComentarioRepository repository, Cliente cliente) {
         this.view = view;
-        this.comentarioRepository = new ComentarioDAO();
+        this.comentarioRepository = repository;
         this.cliente = cliente;
         
         this.setComportamentos();

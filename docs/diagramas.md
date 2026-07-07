@@ -1,3 +1,7 @@
+# Diagrama de Classes
+
+![Diagrama de Classes](https://github.com/fajremvp/cantina-udesc-doo2/blob/main/docs/assets/DiagramaDeClasses.png?raw=true)
+
 # Diagramas de Sequência
 
 ## Issue #21 - User Authentication and Initial Navigation
@@ -235,7 +239,7 @@ deactivate View
 **Autor:** Maria Zortea - @maria-zortea
 
 ### 6. Realizar Pedido
-![Realizar Pedido](https://github.com/fajremvp/cantina-udesc-doo2/blob/main/docs/assets/assets/RealizarPedido.png?raw=true)
+![Realizar Pedido](https://github.com/fajremvp/cantina-udesc-doo2/blob/main/docs/assets/RealizarPedido.png?raw=true)
 
 <details>
 <summary>Ver código fonte (PlantUML)</summary>

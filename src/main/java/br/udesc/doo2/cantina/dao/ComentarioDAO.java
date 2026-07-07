@@ -31,7 +31,7 @@ public class ComentarioDAO implements ComentarioRepository {
         
         try {
             return em.createQuery(
-                "SELECT * FROM comentario"
+                "SELECT c FROM Comentario c ORDER BY c.data DESC, c.id", Comentario.class
             ).getResultList();
         } finally {
             em.close();

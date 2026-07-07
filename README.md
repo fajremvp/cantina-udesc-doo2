@@ -48,6 +48,8 @@ sqlite3 database/cantina.db < database/seed.sql
 **Credenciais de demonstração:**
 - Administrador - senha: `admin123`
 
+---
+
 ### 👥 Desenvolvedores (Equipe)
 
 - Gustavo Hoffmann

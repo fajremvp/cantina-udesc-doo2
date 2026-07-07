@@ -1,3 +1,7 @@
+# Diagrama de Classes
+
+![Diagrama de Classes](https://github.com/fajremvp/cantina-udesc-doo2/blob/main/docs/assets/DiagramaDeClasses.png?raw=true)
+
 # Diagramas de Sequência
 
 ## Issue #21 - User Authentication and Initial Navigation

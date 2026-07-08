@@ -1,16 +1,35 @@
 package br.udesc.doo2.cantina.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-public class Comentario {
+@Entity
+@Table(name = "comentario")
+public class Comentario implements Serializable {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    
     private LocalDate data;
     private String descricao;
     private int nota;
+    
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
+    
+    protected Comentario() {
+    }
 
-    public Comentario(int id, LocalDate data, String descricao, int nota, Cliente cliente) {
-        this.id = id;
+    public Comentario(LocalDate data, String descricao, int nota, Cliente cliente) {
         this.data = data;
         this.descricao = descricao;
         this.nota = nota;

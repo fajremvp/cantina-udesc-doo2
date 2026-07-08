@@ -8,7 +8,6 @@ import br.udesc.doo2.cantina.repository.UsuarioRepository;
 import br.udesc.doo2.cantina.util.SenhaUtils;
 import br.udesc.doo2.cantina.view.AlterarCadastroView;
 
-import javax.swing.JOptionPane;
 import java.util.Arrays;
 
 public class ManutencaoCadastroController {
@@ -23,14 +22,14 @@ public class ManutencaoCadastroController {
     }
 
     private void registrarListeners() {
-        view.getBotaoSalvar().addActionListener(e -> tratarAtualizacao());
-        view.getBotaoVoltar().addActionListener(e -> view.dispose());
+        view.adicionarAcaoBtnSalvar(e -> tratarAtualizacao());
+        view.adicionarAcaoBtnVoltar(e -> view.fecharTela());
     }
 
     private void tratarAtualizacao() {
         Usuario usuario = view.getUsuarioLogado();
-        String nome     = view.getCampoNome().getText().trim();
-        char[] senha    = view.getCampoSenha().getPassword();
+        String nome = view.getNome();
+        char[] senha = view.getSenha();
 
         try {
             if (nome.isEmpty()) {
@@ -40,7 +39,7 @@ public class ManutencaoCadastroController {
             usuario.setNome(nome);
 
             if (usuario instanceof Cliente cliente) {
-                String matricula = view.getCampoMatricula().getText().trim();
+                String matricula = view.getMatricula(); 
                 if (matricula.isEmpty()) {
                     throw new UsuarioException("Matrícula é obrigatória.");
                 }
@@ -54,11 +53,11 @@ public class ManutencaoCadastroController {
 
             usuarioRepository.atualizar(usuario);
 
-            JOptionPane.showMessageDialog(view, "Cadastro atualizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-            view.dispose();
+            view.apresentarMensagemSucesso("Cadastro atualizado com sucesso!");
+            view.fecharTela();
 
         } catch (UsuarioException ex) {
-             JOptionPane.showMessageDialog(view, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+             view.setMensagemErro(ex.getMessage());
         } finally {
             Arrays.fill(senha, '\0');
         }

@@ -25,13 +25,14 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="btnEnviarComentario" min="-2" pref="307" max="-2" attributes="0"/>
-                  <Component id="btnFazerPedidoHomeCliente" alignment="0" min="-2" pref="307" max="-2" attributes="0"/>
-                  <Component id="txtRefeiçãodoDiaHomeCliente" min="-2" pref="307" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="btnEnviarComentario" pref="307" max="32767" attributes="0"/>
+                  <Component id="btnFazerPedidoHomeCliente" alignment="0" pref="307" max="32767" attributes="0"/>
+                  <Component id="txtRefeiçãodoDiaHomeCliente" pref="307" max="32767" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnAlterarCadastroHomeCliente" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="69" max="32767" attributes="0"/>
+              <EmptySpace pref="24" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -40,13 +41,15 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-              <Component id="txtRefeiçãodoDiaHomeCliente" min="-2" pref="102" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="txtRefeiçãodoDiaHomeCliente" min="-2" pref="124" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnFazerPedidoHomeCliente" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnEnviarComentario" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="21" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="btnAlterarCadastroHomeCliente" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="27" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -70,6 +73,11 @@
     <Component class="javax.swing.JButton" name="btnEnviarComentario">
       <Properties>
         <Property name="text" type="java.lang.String" value="Enviar Comentario"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnAlterarCadastroHomeCliente">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Alterar Cadastro"/>
       </Properties>
     </Component>
   </SubComponents>

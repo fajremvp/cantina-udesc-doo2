@@ -7,21 +7,18 @@ import br.udesc.doo2.cantina.model.Pedido;
 import br.udesc.doo2.cantina.repository.PedidoRepository;
 import br.udesc.doo2.cantina.view.administrador.RelatoriosView;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import javax.swing.table.DefaultTableModel;
 
 public class RelatorioController {
     
     private RelatoriosView view;
     private PedidoRepository pedidoRepository;
-    
-    private DateTimeFormatter dtFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     
     public RelatorioController(RelatoriosView view, PedidoRepository pedidoRepository) {
         this.view = view;
@@ -31,38 +28,33 @@ public class RelatorioController {
     }
     
     private void setAcoes() {
-        view.getBtnGerar().addActionListener(e -> this.gerarRelatorio());
+        view.setAcaoBotaoGerarRelatorio(e -> this.gerarRelatorio());
     }
     
     public void gerarRelatorio() {
         try {
-            LocalDateTime dataInicial = LocalDateTime.parse(this.getDataInicial().trim(), dtFormat);
-            LocalDateTime dataFinal = LocalDateTime.parse(this.getDataFinal().trim(), dtFormat);
+            LocalDate dataInicial = view.getDataInicial();
+            LocalDate dataFinal = view.getDataFinal();
             
-            int tipo = view.getJcbTipo().getSelectedIndex();
+            List<Pedido> pedidos = pedidoRepository.buscarPorData(dataInicial.atStartOfDay(), dataFinal.atTime(LocalTime.MAX));
+            
+            int tipo = view.getTipoRelatorio();
             
             switch(tipo) {
-                case 0:
-                    this.gerarRelatorioClientes(dataInicial, dataFinal);
-                    break;
-                case 1:
-//                    this.gerarRelatorioTipoConsumo(dataInicial, dataFinal);
-                    break;
-                case 2:
-//                    this.gerarRelatorioPorCarne(dataInicial, dataFinal);
-                    break;
+                case 0 -> this.gerarRelatorioClientes(pedidos);
+                case 1 -> this.gerarRelatorioTipoConsumo(pedidos);
+                case 2 -> this.gerarRelatorioPorCarne(pedidos);
             }
             
             view.apresentarMensagem("Relatório gerado com sucesso");
-        } catch(RuntimeException e) {
-            view.apresentarMensagem("Não foi possível completar a ação");
-            System.out.println(e.getMessage());
+        } catch(DateTimeParseException  e) {
+            view.apresentarMensagem("Não foi possível completar a ação - formato de data inválido");
+        } catch(Exception e) {
+            view.apresentarMensagem("Não foi possível completar a ação - tente novamente mais tarde");
         }
     }
     
-    private void gerarRelatorioClientes(LocalDateTime dataInicial, LocalDateTime dataFinal) {
-        List<Pedido> pedidos = pedidoRepository.buscarPorData(dataInicial, dataFinal);
-
+    private void gerarRelatorioClientes(List<Pedido> pedidos) {
         Set<Cliente> clientes = new HashSet<>();
 
         for(Pedido pedido : pedidos) {
@@ -72,12 +64,10 @@ public class RelatorioController {
         Map<String, Integer> dados = new HashMap<>();
         dados.put("Clientes Únicos", clientes.size());
 
-        this.exibirRelatorio("Descrição", dados);
+        view.exibirRelatorio("Descrição", dados);
     }
-/*    
-    private void gerarRelatorioTipoConsumo(LocalDate dataInicial, LocalDate dataFinal) {
-        List<Pedido> pedidos = pedidoRepository.buscarPorData(dataInicial, dataFinal);
-
+    
+    private void gerarRelatorioTipoConsumo(List<Pedido> pedidos) {
         Map<TipoConsumo, Integer> mapa = new HashMap<>();
 
         for (Pedido pedido : pedidos) {
@@ -85,12 +75,10 @@ public class RelatorioController {
             mapa.put(tipo, mapa.getOrDefault(tipo, 0) + 1);
         }
         
-        this.exibirRelatorio("Tipo de Consumo", mapa);
+        view.exibirRelatorio("Tipo de Consumo", mapa);
     }
     
-    private void gerarRelatorioPorCarne(LocalDate dataInicial, LocalDate dataFinal) {
-        List<Pedido> pedidos = pedidoRepository.buscarPorData(dataInicial, dataFinal);
-
+    private void gerarRelatorioPorCarne(List<Pedido> pedidos) {
         Map<OpcaoCarne, Integer> mapa = new HashMap<>();
 
         for (Pedido pedido : pedidos) {
@@ -98,39 +86,7 @@ public class RelatorioController {
             mapa.put(carne, mapa.getOrDefault(carne, 0) + 1);
         }
         
-        this.exibirRelatorio("Opção de Carne", mapa);
-    }
-  */  
-    private void exibirRelatorio(String tituloColuna, Map<?, Integer> dados) {
-        DefaultTableModel model = (DefaultTableModel) view.getTblDados().getModel();
-
-        model.setRowCount(0);
-
-        model.setColumnCount(0);
-
-        model.addColumn(tituloColuna);
-        model.addColumn("Quantidade");
-
-        for (Map.Entry<?, Integer> entry : dados.entrySet()) {
-
-            model.addRow(new Object[]{
-                entry.getKey(),
-                entry.getValue()
-            });
-
-        }
-    }
-    
-    private String getDataInicial() {
-        return view.getTxtDataInicial().getText();
-    }
-    
-    private String getDataFinal() {
-        return view.getTxtDataFinal().getText();
-    }
-    
-    private List<Pedido> buscarPedidos() {
-        return pedidoRepository.buscarTodos();
+        view.exibirRelatorio("Opção de Carne", mapa);
     }
     
 }

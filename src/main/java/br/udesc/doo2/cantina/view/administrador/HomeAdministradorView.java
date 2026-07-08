@@ -12,6 +12,8 @@ import br.udesc.doo2.cantina.model.Administrador;
 import br.udesc.doo2.cantina.repository.ComentarioRepository;
 import br.udesc.doo2.cantina.repository.OpcaoCarneRepository;
 import br.udesc.doo2.cantina.repository.RefeicaoRepository;
+import br.udesc.doo2.cantina.view.AlterarCadastroView;
+import br.udesc.doo2.cantina.controller.ManutencaoCadastroController;
 
 public class HomeAdministradorView extends javax.swing.JFrame {
     
@@ -65,7 +67,9 @@ public class HomeAdministradorView extends javax.swing.JFrame {
     }
     
     public void acaoAlterarCadastro() {
-        
+        AlterarCadastroView view = new AlterarCadastroView(administradorLogado);
+        new ManutencaoCadastroController(view);
+        view.setVisible(true);
     }
 
     /**

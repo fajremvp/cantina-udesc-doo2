@@ -1,6 +1,7 @@
 package br.udesc.doo2.cantina.view.cliente;
 
 import br.udesc.doo2.cantina.controller.ComentarioController;
+import br.udesc.doo2.cantina.controller.ManutencaoCadastroController;
 import br.udesc.doo2.cantina.controller.PedidoController;
 import br.udesc.doo2.cantina.dao.ComentarioDAO;
 import br.udesc.doo2.cantina.dao.PedidoDAO;
@@ -8,6 +9,7 @@ import br.udesc.doo2.cantina.dao.RefeicaoDAO;
 import br.udesc.doo2.cantina.model.Cliente;
 import br.udesc.doo2.cantina.model.Refeicao;
 import br.udesc.doo2.cantina.repository.ComentarioRepository;
+import br.udesc.doo2.cantina.view.AlterarCadastroView;
 import br.udesc.doo2.cantina.view.administrador.ConsultarPedidosView;
 import java.time.LocalDate;
 import javax.persistence.NoResultException;
@@ -29,6 +31,7 @@ public class HomeClienteView extends javax.swing.JFrame {
         txtRefeiçãodoDiaHomeCliente.setEditable(false);
         btnFazerPedidoHomeCliente.addActionListener(e -> abrirTelaPedido());
         btnEnviarComentario.addActionListener(e -> abrirTelaComentario());
+        btnAlterarCadastroHomeCliente.addActionListener(e -> abrirTelaAlterarCadastro());
         carregarRefeicaoDoDia();
     }
     
@@ -78,6 +81,12 @@ public class HomeClienteView extends javax.swing.JFrame {
         ComentarioRepository repository = new ComentarioDAO();
         new ComentarioController(view, repository, getClienteLogado());
     }
+    
+    private void abrirTelaAlterarCadastro() {
+        AlterarCadastroView view = new AlterarCadastroView(clienteLogado);
+        new ManutencaoCadastroController(view);
+        view.setVisible(true);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -92,6 +101,7 @@ public class HomeClienteView extends javax.swing.JFrame {
         txtRefeiçãodoDiaHomeCliente = new javax.swing.JTextField();
         btnFazerPedidoHomeCliente = new javax.swing.JButton();
         btnEnviarComentario = new javax.swing.JButton();
+        btnAlterarCadastroHomeCliente = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -102,31 +112,36 @@ public class HomeClienteView extends javax.swing.JFrame {
 
         btnEnviarComentario.setText("Enviar Comentario");
 
+        btnAlterarCadastroHomeCliente.setText("Alterar Cadastro");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnEnviarComentario, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFazerPedidoHomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtRefeiçãodoDiaHomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnEnviarComentario, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
+                    .addComponent(btnFazerPedidoHomeCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
+                    .addComponent(txtRefeiçãodoDiaHomeCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
+                    .addComponent(jLabel1)
+                    .addComponent(btnAlterarCadastroHomeCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addComponent(jLabel1)
-                .addGap(34, 34, 34)
-                .addComponent(txtRefeiçãodoDiaHomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtRefeiçãodoDiaHomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnFazerPedidoHomeCliente)
                 .addGap(18, 18, 18)
                 .addComponent(btnEnviarComentario)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnAlterarCadastroHomeCliente)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -160,6 +175,7 @@ public class HomeClienteView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAlterarCadastroHomeCliente;
     private javax.swing.JButton btnEnviarComentario;
     private javax.swing.JButton btnFazerPedidoHomeCliente;
     private javax.swing.JLabel jLabel1;

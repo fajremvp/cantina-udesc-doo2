@@ -8,7 +8,6 @@ import br.udesc.doo2.cantina.util.SenhaUtils;
 import br.udesc.doo2.cantina.view.CadastroView;
 import br.udesc.doo2.cantina.view.LoginView;
 
-import javax.swing.JOptionPane;
 import java.util.Arrays;
 
 public class CadastroController {
@@ -23,36 +22,34 @@ public class CadastroController {
     }
 
     private void registrarListeners() {
-        view.getBotaoConfirmar().addActionListener(e -> tratarCadastro());
-        view.getBotaoVoltar().addActionListener(e -> voltarParaLogin());
+        view.adicionarAcaoBtnConfirmar(e -> tratarCadastro());
+        view.adicionarAcaoBtnVoltar(e -> voltarParaLogin());
     }
 
     private void tratarCadastro() {
-        String nome      = view.getCampoNome().getText().trim();
-        String matricula = view.getCampoMatricula().getText().trim();
-        char[] senha     = view.getCampoSenha().getPassword();
+        String nome = view.getNome();
+        String matricula = view.getMatricula();
+        char[] senha = view.getSenha();
 
         try {
             if (nome.isEmpty() || matricula.isEmpty() || senha.length == 0) {
                 throw new UsuarioException("Todos os campos são obrigatórios.");
             }
 
-            // Valida duplicidade primeiro
             if (usuarioRepository.buscarPorMatricula(matricula) != null) {
                  throw new UsuarioException("Matrícula " + matricula + " já está cadastrada.");
             }
 
-            // Faz o Hash na hora, ANTES de mandar para o Cliente
             String hashSenha = SenhaUtils.gerarHash(senha);
             Cliente novoCliente = new Cliente(0, nome, hashSenha, matricula);
 
             usuarioRepository.salvar(novoCliente);
 
-            JOptionPane.showMessageDialog(view, "Cadastro realizado! Faça login com sua matrícula.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            view.apresentarMensagem("Cadastro realizado! Faça login com sua matrícula.", "Sucesso");
             voltarParaLogin();
 
         } catch (UsuarioException ex) {
-            JOptionPane.showMessageDialog(view, ex.getMessage(), "Erro no Cadastro", JOptionPane.ERROR_MESSAGE);
+            view.setMensagemErro(ex.getMessage());
         } finally {
             Arrays.fill(senha, '\0');
         }
@@ -62,6 +59,7 @@ public class CadastroController {
         LoginView loginView = new LoginView();
         new LoginController(loginView);
         loginView.setVisible(true);
-        view.dispose();
+        view.fecharTela();
     }
+    
 }

@@ -131,12 +131,18 @@ public class AlterarCadastroView extends javax.swing.JFrame {
     }
     
     public Usuario getUsuarioLogado() { return usuarioLogado; }
-    public javax.swing.JTextField getCampoNome() { return txtNome; }
-    public javax.swing.JTextField getCampoMatricula() { return txtMatricula; }
-    public javax.swing.JPasswordField getCampoSenha() { return txtSenha; }
-    public javax.swing.JButton getBotaoSalvar() { return btnSalvar; }
-    public javax.swing.JButton getBotaoVoltar() { return btnVoltar; }
     
+    public String getNome() { return txtNome.getText().trim(); }
+    public String getMatricula() { return txtMatricula.getText().trim(); }
+    public char[] getSenha() { return txtSenha.getPassword(); }
+
+    public void adicionarAcaoBtnSalvar(java.awt.event.ActionListener acao) { btnSalvar.addActionListener(acao); }
+    public void adicionarAcaoBtnVoltar(java.awt.event.ActionListener acao) { btnVoltar.addActionListener(acao); }
+
+    public void apresentarMensagemSucesso(String msg) { 
+        javax.swing.JOptionPane.showMessageDialog(this, msg, "Sucesso", javax.swing.JOptionPane.INFORMATION_MESSAGE); 
+    }
+    public void fecharTela() { this.dispose(); }
     public void setMensagemErro(String msg) { 
         javax.swing.JOptionPane.showMessageDialog(this, msg, "Erro", javax.swing.JOptionPane.ERROR_MESSAGE); 
     }

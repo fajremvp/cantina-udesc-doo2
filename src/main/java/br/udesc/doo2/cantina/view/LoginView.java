@@ -126,31 +126,18 @@ public class LoginView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    // Métodos para o Controller ler os dados digitados
-    public javax.swing.JTextField getCampoMatricula() {
-        return txtMatricula;
-    }
+    public String getMatricula() { return txtMatricula.getText().trim(); }
+    public char[] getSenhaCliente() { return txtSenha.getPassword(); }
+    public char[] getSenhaAdmin() { return txtSenhaAdmin.getPassword(); }
 
-    public javax.swing.JPasswordField getCampoSenhaCliente() {
-        return txtSenha;
-    }
+    public void adicionarAcaoBtnEntrarCliente(java.awt.event.ActionListener acao) { btnEntrar.addActionListener(acao); }
+    public void adicionarAcaoBtnEntrarAdmin(java.awt.event.ActionListener acao) { btnEntrarAdmin.addActionListener(acao); }
+    public void adicionarAcaoBtnCadastrar(java.awt.event.ActionListener acao) { btnCadastrar.addActionListener(acao); }
 
-    public javax.swing.JPasswordField getCampoSenhaAdmin() {
-        return txtSenhaAdmin;
+    public void apresentarMensagemErro(String msg) { 
+        javax.swing.JOptionPane.showMessageDialog(this, msg, "Erro de autenticação", javax.swing.JOptionPane.ERROR_MESSAGE); 
     }
-
-    // Métodos para o Controller adicionar os Listeners de clique
-    public javax.swing.JButton getBotaoEntrarCliente() {
-        return btnEntrar;
-    }
-
-    public javax.swing.JButton getBotaoCadastrar() {
-        return btnCadastrar;
-    }
-
-    public javax.swing.JButton getBotaoEntrarAdmin() {
-        return btnEntrarAdmin;
-    }
+    public void fecharTela() { this.dispose(); }
     
     /**
      * @param args the command line arguments

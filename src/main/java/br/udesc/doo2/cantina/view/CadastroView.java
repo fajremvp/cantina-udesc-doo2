@@ -1,9 +1,5 @@
 package br.udesc.doo2.cantina.view;
 
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
-import javax.swing.JButton;
-
 public class CadastroView extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CadastroView.class.getName());
@@ -114,12 +110,17 @@ public class CadastroView extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> new CadastroView().setVisible(true));
     }
     
-    public JTextField getCampoNome()       { return txtNome; }
-    public JTextField getCampoMatricula()  { return txtMatricula; }
-    public JPasswordField getCampoSenha()  { return txtSenha; }
-    public JButton getBotaoConfirmar()     { return btnConfirmar; }
-    public JButton getBotaoVoltar()        { return btnVoltar; }
+    public String getNome() { return txtNome.getText().trim(); }
+    public String getMatricula() { return txtMatricula.getText().trim(); }
+    public char[] getSenha() { return txtSenha.getPassword(); }
 
+    public void adicionarAcaoBtnConfirmar(java.awt.event.ActionListener acao) { btnConfirmar.addActionListener(acao); }
+    public void adicionarAcaoBtnVoltar(java.awt.event.ActionListener acao) { btnVoltar.addActionListener(acao); }
+
+    public void apresentarMensagem(String msg, String titulo) { 
+        javax.swing.JOptionPane.showMessageDialog(this, msg, titulo, javax.swing.JOptionPane.INFORMATION_MESSAGE); 
+    }
+    public void fecharTela() { this.dispose(); }
     public void setMensagemErro(String msg) { 
         javax.swing.JOptionPane.showMessageDialog(this, msg, "Erro", javax.swing.JOptionPane.ERROR_MESSAGE); 
     }

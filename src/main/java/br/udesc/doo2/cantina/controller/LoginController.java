@@ -12,8 +12,6 @@ import br.udesc.doo2.cantina.view.CadastroView;
 import br.udesc.doo2.cantina.controller.CadastroController;
 import br.udesc.doo2.cantina.infra.Sessao;
 
-import javax.swing.JOptionPane;
-
 public class LoginController {
 
     private final LoginView view;
@@ -33,18 +31,10 @@ public class LoginController {
         registrarListeners();
     }
 
-    /**
-     * Registra, via lambda, os Listeners nos botões da View. Centraliza
-     * aqui toda a reação a eventos - a View não sabe o que acontece quando
-     * o botão é clicado, apenas dispara o evento.
-     */
     private void registrarListeners() {
-        view.getBotaoEntrarCliente().addActionListener(e -> tratarLoginCliente());
-        view.getBotaoEntrarAdmin().addActionListener(e -> tratarLoginAdministrador());
-
-        // TODO: o fluxo de Cadastro pertence à Issue #22 (CadastroController).
-        // Por ora, deixamos o botão delegando para uma tela ainda a definir.
-        view.getBotaoCadastrar().addActionListener(e -> abrirTelaCadastro());
+        view.adicionarAcaoBtnEntrarCliente(e -> tratarLoginCliente());
+        view.adicionarAcaoBtnEntrarAdmin(e -> tratarLoginAdministrador());
+        view.adicionarAcaoBtnCadastrar(e -> abrirTelaCadastro());
     }
 
     /**
@@ -52,22 +42,17 @@ public class LoginController {
      * autenticarCliente, e decide a navegação.
      */
     private void tratarLoginCliente() {
-        String matricula = view.getCampoMatricula().getText();
-        char[] senha = view.getCampoSenhaCliente().getPassword();
+        String matricula = view.getMatricula();
+        char[] senha = view.getSenhaCliente();
 
         try {
             Cliente cliente = usuarioRepository.autenticarCliente(matricula, senha);
 
             new HomeClienteView(cliente).setVisible(true);
-            view.dispose();
+            view.fecharTela();
 
         } catch (UsuarioException ex) {
-            JOptionPane.showMessageDialog(
-                    view,
-                    ex.getMessage(),
-                    "Erro de autenticação",
-                    JOptionPane.ERROR_MESSAGE
-            );
+            view.apresentarMensagemErro(ex.getMessage());
         } finally {
             // Limpa a senha da memória assim que possível, independente do
             // resultado (sucesso ou falha de autenticação).
@@ -80,21 +65,16 @@ public class LoginController {
      * matrícula/identificador para Admin).
      */
     private void tratarLoginAdministrador() {
-        char[] senha = view.getCampoSenhaAdmin().getPassword();
+        char[] senha = view.getSenhaAdmin();
 
         try {
             Administrador admin = usuarioRepository.autenticarAdministrador(senha);
 
             new HomeAdministradorView(admin).setVisible(true);
-            view.dispose();
+            view.fecharTela();
 
         } catch (UsuarioException ex) {
-            JOptionPane.showMessageDialog(
-                    view,
-                    ex.getMessage(),
-                    "Erro de autenticação",
-                    JOptionPane.ERROR_MESSAGE
-            );
+            view.apresentarMensagemErro(ex.getMessage());
         } finally {
             java.util.Arrays.fill(senha, '\0');
         }
@@ -104,6 +84,6 @@ public class LoginController {
         CadastroView cadastroView = new CadastroView();
         new CadastroController(cadastroView);
         cadastroView.setVisible(true);
-        view.dispose();
+        view.fecharTela();
     }
 }

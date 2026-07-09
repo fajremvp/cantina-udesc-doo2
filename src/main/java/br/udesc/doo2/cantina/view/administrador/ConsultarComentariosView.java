@@ -4,11 +4,14 @@
  */
 package br.udesc.doo2.cantina.view.administrador;
 
+import br.udesc.doo2.cantina.model.Comentario;
+import java.util.List;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author fajre
+ * @author ruanc
  */
 public class ConsultarComentariosView extends javax.swing.JFrame {
     
@@ -22,8 +25,22 @@ public class ConsultarComentariosView extends javax.swing.JFrame {
         this.setVisible(true);
     }
     
-    public JTable getTblComentarios() {
-        return this.tblComentarios;
+    public void imprimeComentarios(List<Comentario> comentarios) {
+        DefaultTableModel model =
+                (DefaultTableModel) tblComentarios.getModel();
+
+        model.setRowCount(0);
+
+        for (Comentario comentario : comentarios) {
+
+            model.addRow(new Object[]{
+                comentario.getData(),
+                comentario.getCliente().getNome(),
+                comentario.getNota(),
+                comentario.getDescricao()
+            });
+
+        }
     }
 
     /**

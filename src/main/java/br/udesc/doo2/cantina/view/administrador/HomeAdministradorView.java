@@ -4,6 +4,7 @@ import br.udesc.doo2.cantina.controller.ComentarioController;
 import br.udesc.doo2.cantina.controller.OpcaoCarneController;
 import br.udesc.doo2.cantina.controller.PedidoController;
 import br.udesc.doo2.cantina.controller.RefeicaoController;
+import br.udesc.doo2.cantina.controller.RelatorioController;
 import br.udesc.doo2.cantina.dao.ComentarioDAO;
 import br.udesc.doo2.cantina.dao.OpcaoCarneDAO;
 import br.udesc.doo2.cantina.dao.PedidoDAO;
@@ -11,6 +12,7 @@ import br.udesc.doo2.cantina.dao.RefeicaoDAO;
 import br.udesc.doo2.cantina.model.Administrador;
 import br.udesc.doo2.cantina.repository.ComentarioRepository;
 import br.udesc.doo2.cantina.repository.OpcaoCarneRepository;
+import br.udesc.doo2.cantina.repository.PedidoRepository;
 import br.udesc.doo2.cantina.repository.RefeicaoRepository;
 import br.udesc.doo2.cantina.view.AlterarCadastroView;
 import br.udesc.doo2.cantina.controller.ManutencaoCadastroController;
@@ -57,7 +59,9 @@ public class HomeAdministradorView extends javax.swing.JFrame {
     }
     
     public void acaoGerarRelatorios() {
-        
+        RelatoriosView view = new RelatoriosView();
+        PedidoRepository pedidoRepository = new PedidoDAO();
+        RelatorioController controller = new RelatorioController(view, pedidoRepository);
     }
     
     public void acaoComentarios() {

@@ -3,6 +3,8 @@ package br.udesc.doo2.cantina.repository;
 import br.udesc.doo2.cantina.enums.StatusPedido;
 import br.udesc.doo2.cantina.enums.TipoConsumo;
 import br.udesc.doo2.cantina.model.Pedido;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -13,4 +15,5 @@ public interface PedidoRepository {
     List<Pedido> buscarTodos();//busca todos os pedidos 
     List<Pedido> buscarPorCliente(String nomeCliente); //filtro de buscar pelo nome do  cliente na ConsultarPedidosView
     List<Pedido> buscarPorTipoConsumo(TipoConsumo tipoConsumo);//filtro de buscar pelo consumo do  cliente na ConsultarPedidosView
+    List<Pedido> buscarPorData(LocalDateTime dataInicial, LocalDateTime dataFinal); //filtro de buscar por um intervalo de tempo
 }

@@ -39,4 +39,10 @@ public class OpcaoCarne {
     public void setRefeicoes(Set<Refeicao> refeicoes) {
         this.refeicoes = refeicoes;
     }
+
+    @Override
+    public String toString() {
+        return nome;
+    }
+    
 }

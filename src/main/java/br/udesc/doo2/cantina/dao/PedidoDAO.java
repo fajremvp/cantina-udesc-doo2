@@ -5,6 +5,8 @@ import br.udesc.doo2.cantina.enums.TipoConsumo;
 import br.udesc.doo2.cantina.infra.Conexao;
 import br.udesc.doo2.cantina.model.Pedido;
 import br.udesc.doo2.cantina.repository.PedidoRepository;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.EntityManager;
 
@@ -131,4 +133,23 @@ public class PedidoDAO implements PedidoRepository {
             em.close();
         }
     }
+    
+    @Override
+    public List<Pedido> buscarPorData(LocalDateTime dataInicial, LocalDateTime dataFinal) {
+        EntityManager em = Conexao.getEntityManager();
+
+        try {
+            return em.createQuery(
+                    "SELECT p FROM Pedido p "
+                  + "WHERE p.dataHoraCriacao BETWEEN :dataInicial AND :dataFinal "
+                  + "ORDER BY p.dataHoraCriacao",
+                    Pedido.class)
+                    .setParameter("dataInicial", dataInicial)
+                    .setParameter("dataFinal", dataFinal)
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+    }
+    
 }

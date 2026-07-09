@@ -46,7 +46,10 @@ sqlite3 database/cantina.db < database/seed.sql
 ```
 
 **Credenciais de demonstração:**
-- Administrador - senha: `admin123`
+- Administrador — senha: `admin123`
+- Cliente (Ana Silva) — matrícula: `2023001`, senha: `senha123`
+- Cliente (Bruno Costa) — matrícula: `2023002`, senha: `senha456`
+- Cliente (Carla Dias) — matrícula: `2023003`, senha: `senha789`
 
 ---
 

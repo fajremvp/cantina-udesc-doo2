@@ -381,3 +381,208 @@ end
 @enduml
 ```
 </details>
+
+## Issue #25 - Customer Feedback
+**Autor:** Ruan Kestring - @RuanKestring
+
+### 8. Realizar Comentário
+![Realizar Comentário](//www.plantuml.com/plantuml/png/bLHBZXD13Dtx55QlaiLS80iqvBD0uWzYxwasGqdrQLLLci1jE0iNmt66hag7Z4WsITdlFJz_bFjSA9MzTq2cn8GRPpaK1XWaR8qTA1JiHilVLvle9KN9nY_ox90o7d-S8qqC9KNdE3NupHHKLdsUSnCFCLjnyQFXVfo2ogtFSsvFiI5jNxvJj7n3JuKUA3DsQmechZvzU6qBQtgz1NXg6EzUQ3UumlU9EPXlZ4RrVlyIGMGCiT0_q18nXEnn5qPB2K3ZagzT2eerMGqkbd0Sk1sfS3iFQ5YrnYENpuSoOxiYn6hGXgynUUeZ0Chdv69kmqmI9zIrQc-bLoboNKY7SIdHh4T0cTn8QL6BBa-KgV6AraJB5YrPtl-824mZYXVQUYkiWLEskLpI97itQJSBrZgn4JfhHiCzNzQiaDcCvemAV6RoD2JEwlSDXqoFx1TTksEzeZuUVMFU6yuvTilhSixwGOwEl9IMRSxMURfaWUqEze7HFrKKqt-r0TXbnjR1I3_jinTMZtHtC3mK6yED3R_IGsRSUvfCTRUuvvIEraCFK1VGhkPUSlAFzmS0)
+
+<details>
+<summary>Ver código fonte (PlantUML)</summary>
+
+```plantuml
+@startuml
+actor Cliente
+
+participant "view:ComentarioView" as View
+participant "controller:ComentarioController" as Controller
+participant "repository:ComentarioRepository" as Repository
+participant "dao:ComentarioDAO" as DAO
+database "Banco:SQLite" as BD
+
+Cliente -> View : Preenche comentário e nota
+Cliente -> View : Clica em Enviar
+
+View -> Controller : enviarComentario()
+
+activate Controller
+
+Controller -> View : getTxtComentario()
+
+alt Comentário informado
+
+    View --> Controller : comentario
+
+    Controller -> View : getNota()
+    View --> Controller : nota
+
+    Controller -> Repository : salvar(comentario)
+
+    activate Repository
+
+    Repository -> DAO : salvar(comentario)
+
+    activate DAO
+
+    DAO -> BD : persist(comentario)
+
+    BD --> DAO : comentário salvo
+
+    DAO --> Repository
+    deactivate DAO
+
+    Repository --> Controller
+    deactivate Repository
+
+    Controller -> View : apresentarMensagem("Comentário enviado com sucesso")
+    Controller -> View : limparCampos()
+
+    View --> Cliente : Exibe mensagem de sucesso
+
+else Comentário vazio
+
+    View --> Controller : ComentarioException
+
+    Controller -> View : apresentarMensagem("Informe uma mensagem")
+
+    View --> Cliente : Exibe mensagem de erro
+
+end
+
+deactivate Controller
+@enduml
+```
+</details>
+
+## Issue #26 - Comments Review (Admin)
+**Autor:** Ruan Kestring - @RuanKestring
+
+### 9. Consultar Comentários
+![Consultar Comentários](//www.plantuml.com/plantuml/png/XP9DRWCX38NtdCBAAbaa1vX5bPzqLwdgZxht35uWCNW4dhGzJi_IYzL1QW0rKJSXmFkUUVPias2KUVG61-48Epkwu994j1oDcVJI3Mx28B0uENhl3XpIx1Kwy4X1LyVfJIyMW0dEVrfcu22HlQVO5U1mESnKsRPif8cJ4uwV5VjyESnisRQiHQwWu-ungtKr5WLxJ0IBFOQ1kvUd1oUKh_T7Ove6mFekPu8ETdqa4F88bc38pjzVv_36P8KgImxLNqkxt6msAtFkj3kXK1tSLB1QbLXgrSzfmFZAbjEomklifW8KrvotkTm5ep-grCX_XNgslfXub-HAveot3xsfjLINRj_Qjkr_YpPrXPP9kN6ARgJg-rncrzNlf5JQJhc3-m_NjpKX80ZsvB6kNeziIy7Ee_y1)
+
+<details>
+<summary>Ver código fonte (PlantUML)</summary>
+
+```plantuml
+@startuml
+actor Administrador
+
+participant "view:ConsultarComentariosView" as View
+participant "controller:ComentarioController" as Controller
+participant "repository:ComentarioRepository" as Repository
+participant "dao:ComentarioDAO" as DAO
+database "Banco:SQLite" as BD
+
+Administrador -> View : Abre tela de comentários
+
+View -> Controller : ComentarioController(...)
+
+activate Controller
+
+Controller -> Repository : buscarTodos()
+
+activate Repository
+
+Repository -> DAO : buscarTodos()
+
+activate DAO
+
+DAO -> BD : buscarTodos()
+
+BD --> DAO : lista de comentários
+
+DAO --> Repository : lista de comentários
+
+deactivate DAO
+
+Repository --> Controller : lista de comentários
+
+deactivate Repository
+
+Controller -> View : imprimeComentarios(lista)
+
+View --> Administrador : Exibe comentários na tabela
+
+deactivate Controller
+@enduml
+```
+</details>
+
+## Issue #27 - Reports Dashboard (Admin)
+**Autor:** Ruan Kestring - @RuanKestring
+
+### 10. Gerar Relatório de Clientes Únicos
+![Gerar Relatório de Clientes Únicos](//www.plantuml.com/plantuml/png/bPEzRXGn4CTxFyLegqGYUO0hK3wE01A8a4XKD7FsA8pazQnix_7nDeY2YegETb-CMUzfdRta8hZcrZF__yzZp_WiPOovRxr1coN2kMivSCeHdKHZEasovGv3XcRBz7brGnvLo98-wB81J31-B9LMGexYFSMglvnZnLINIskaJXAhu-lgcXmxkPa3nLUNIvz3sHdMv--AKl-DmumRJ0JD1GOhgzltRpXJIL-iZLcS5awUbwF02cx9asK921t5uPSu-HXghBdqJ25JWk5FO2kfEGXIfKMW5bvIn6XC2Mkwdbv5TsDklgUZOpFsWhUOgUhKMx_h1khDQypuMkjWzEgTTjZVmbNDqw0h3azZ9eKnw3ECXWJRuRjdXyaOqDyINhkbxasVBCPhYQFlw5v9pohuUABC5r01KwAk5J-s-07tzFHq7wAo4YbwjLsirMKbfDvdZD2LiTdLhxcJcUmvPGH7LJ9JbeSx97Nqi8Xgsx_WmvI3zn54Wx9LS-LCVK1lUuzWzsQr9FlCdhzXS09z2wymVRgbN38KN65Ez4SdXRxmXk_DQxEcP2CFFuSVqeojT9AEd_1Z5obHo1ZVKaXuH-rHKsZ3RyMLr-04hBIGUaifIREZpJEvV6qhUA4L4SJA20WPDxesXdmYk9BOOXPmL2ODE4n3A_zPva7EFvROxaWZW68KOoWuOnmzzk3FDDUt_Yy0)
+
+<details>
+<summary>Ver código fonte (PlantUML)</summary>
+
+```plantuml
+@startuml
+actor Administrador
+
+participant "view:RelatoriosView" as View
+participant "controller:RelatorioController" as Controller
+participant "repository:PedidoRepository" as Repository
+participant "dao:PedidoDAO" as DAO
+database "Banco:SQLite" as BD
+
+Administrador -> View : Seleciona período\nSeleciona "Clientes únicos"
+Administrador -> View : Clica em Gerar
+
+View -> Controller : gerarRelatorio()
+
+activate Controller
+
+Controller -> View : getDataInicial()
+View --> Controller : dataInicial
+
+Controller -> View : getDataFinal()
+View --> Controller : dataFinal
+
+alt Datas válidas
+
+    Controller -> Repository : buscarPorData(dataInicial, dataFinal)
+
+    activate Repository
+
+    Repository -> DAO : buscarPorData(...)
+
+    activate DAO
+
+    DAO -> BD : consultar pedidos
+
+    BD --> DAO : lista de pedidos
+
+    DAO --> Repository : lista de pedidos
+
+    deactivate DAO
+
+    Repository --> Controller : lista de pedidos
+
+    deactivate Repository
+
+    note over Controller
+    Calcula clientes únicos
+    utilizando um HashSet
+    end note
+
+    Controller -> View : exibirRelatorio("Descrição", dados)
+
+    Controller -> View : apresentarMensagem("Relatório gerado com sucesso")
+
+    View --> Administrador : Exibe relatório na tabela
+
+else Formato de data inválido
+
+    Controller -> View : apresentarMensagem("Formato de data inválido")
+
+    View --> Administrador : Exibe mensagem de erro
+
+end
+
+deactivate Controller
+@enduml
+```
+</details>
